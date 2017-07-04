@@ -1,0 +1,27 @@
+{
+  "name": "becquerel",
+  "version": "0.0.0",
+  "description": "Yet another web framework experiment.",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbenner-radham/becquerel.git"
+  },
+  "keywords": [
+    "framework",
+    "web",
+    "http"
+  ],
+  "author": "James Benner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jbenner-radham/becquerel/issues"
+  },
+  "homepage": "https://github.com/jbenner-radham/becquerel#readme",
+  "dependencies": {
+    "chalk": "^2.0.1"
+  }
+}
