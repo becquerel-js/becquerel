@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [Unreleased]
 ------------
 ### Added
-- Added `query` parameter to the `request` callback argument.
+- Added `query` parameter to the `Request` class.
+- Added `host` and `userAgent` properties to the `Request` class.
 
 [0.2.0] - 2017-07-05
 --------------------
