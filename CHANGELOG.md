@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated the changelog format.
 - Updated the usage section on the readme.
 - Route callback functions now receive a `request` and `response` argument.
+- Changed the `Bq.prototype.listen` method to `Bq.prototype.run`.
 
 0.1.0 - 2017-07-04
 ------------------

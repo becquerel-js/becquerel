@@ -20,5 +20,9 @@ app.route('/hello', {
     }
 });
 
-app.listen(8080);
+app.run();
 ```
+
+License
+-------
+The MIT License (Expat). See the [license file](LICENSE) for details.
