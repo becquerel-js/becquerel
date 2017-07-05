@@ -16,7 +16,7 @@ app.route('/', {
 
 app.route('/hello', {
     get: (request, response) => {
-        response.html = '<p>...world</p>;
+        response.html = '<p>...world</p>';
     }
 });
 
