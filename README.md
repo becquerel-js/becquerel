@@ -2,6 +2,12 @@ becquerel
 =========
 Yet another web framework experiment.
 
+Install
+-------
+```sh
+$ npm install --save becquerel  # Or alternately: `yarn add becquerel`
+```
+
 Usage
 -----
 ```js
