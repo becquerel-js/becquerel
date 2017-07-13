@@ -29,5 +29,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/jbenner-radham/becquerel/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/jbenner-radham/becquerel/compare/v0.1.0...v0.2.0
+[Unreleased]: https://github.com/becquerel-js/framework/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/becquerel-js/framework/compare/v0.1.0...v0.2.0

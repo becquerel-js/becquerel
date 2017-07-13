@@ -1,5 +1,5 @@
 {
-  "name": "becquerel",
+  "name": "@becquerel/framework",
   "version": "0.2.0",
   "description": "Yet another web framework experiment.",
   "main": "./lib/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jbenner-radham/becquerel.git"
+    "url": "git+https://github.com/becquerel-js/framework.git"
   },
   "keywords": [
     "framework",
@@ -18,9 +18,9 @@
   "author": "James Benner",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jbenner-radham/becquerel/issues"
+    "url": "https://github.com/becquerel-js/framework/issues"
   },
-  "homepage": "https://github.com/jbenner-radham/becquerel#readme",
+  "homepage": "https://github.com/becquerel-js/framework#readme",
   "dependencies": {
     "chalk": "^2.0.1"
   }
