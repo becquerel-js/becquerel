@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">Changelog</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/becquerel-js/framework" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual" data-toc-name="reference">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#class" data-ice="link">Class</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="changelog">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-changelog" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html" data-ice="link">Changelog</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#-unreleased-" data-ice="link">Unreleased</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#added" data-ice="link">Added</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#changed" data-ice="link">Changed</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#-0-3-0-2017-07-13" data-ice="link">0.3.0 - 2017-07-13</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#added" data-ice="link">Added</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#removed" data-ice="link">Removed</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#-0-2-0-2017-07-05" data-ice="link">0.2.0 - 2017-07-05</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#added" data-ice="link">Added</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#changed" data-ice="link">Changed</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#0-1-0-2017-07-04" data-ice="link">0.1.0 - 2017-07-04</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/changelog/CHANGELOG.html"><a href="manual/changelog/CHANGELOG.html#added" data-ice="link">Added</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  <div class="manual-breadcrumb-list">
+    <a href="./manual/./index.html">Manual</a>
+    <span>&#xBB;</span>
+    <span data-ice="title">Changelog</span>
+  </div>
+  <div data-ice="content"><h1 id="changelog">Changelog</h1>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
+and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<h2 id="-unreleased-"><a href="https://github.com/becquerel-js/framework/compare/v0.2.0...HEAD">Unreleased</a></h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Added <code>BQ_RUN_DEFAULT_PORT</code> and <code>BQ_RUN_DISPLAY_MSG</code> config envvars.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>The required Node version is now <code>&gt;=7.10</code>.</li>
+</ul>
+<h2 id="-0-3-0-2017-07-13"><a href="https://github.com/becquerel-js/framework/compare/v0.2.0...v0.3.0">0.3.0</a> - 2017-07-13</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Added <code>query</code> parameter to the <code>Request</code> class.</li>
+<li>Added <code>dnt</code>, <code>host</code>, and <code>userAgent</code> properties to the <code>Request</code> class.</li>
+<li>Added <code>headers</code> property to the <code>Request</code> class.</li>
+<li>Added <code>jasmine</code> tests.</li>
+</ul>
+<h3 id="removed">Removed</h3>
+<ul>
+<li>Removed <code>chalk</code> package dependency.</li>
+</ul>
+<h2 id="-0-2-0-2017-07-05"><a href="https://github.com/becquerel-js/framework/compare/v0.1.0...v0.2.0">0.2.0</a> - 2017-07-05</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Added &quot;Install&quot; section in readme.</li>
+<li>Added &quot;License&quot; section in readme.</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Updated the changelog format.</li>
+<li>Updated the usage section on the readme.</li>
+<li>Route callback functions now receive a <code>request</code> and <code>response</code> argument.</li>
+<li>Changed the <code>Bq.prototype.listen</code> method to <code>Bq.prototype.run</code>.</li>
+</ul>
+<h2 id="0-1-0-2017-07-04">0.1.0 - 2017-07-04</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Initial release.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

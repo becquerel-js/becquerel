@@ -1,0 +1,37 @@
+{
+  "name": "@becquerel/framework",
+  "version": "0.3.0",
+  "description": "Yet another web framework experiment.",
+  "engines": {
+    "node": ">=7.10"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/becquerel-js/framework.git"
+  },
+  "keywords": [
+    "api",
+    "app",
+    "bq",
+    "becquerel",
+    "framework",
+    "http",
+    "router",
+    "web"
+  ],
+  "author": "James Benner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/becquerel-js/framework/issues"
+  },
+  "homepage": "https://github.com/becquerel-js/framework#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "esdoc-node": "^1.0.2",
+    "jasmine": "^2.6.0"
+  }
+}
