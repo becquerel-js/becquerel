@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `query` parameter to the `Request` class.
 - Added `host` and `userAgent` properties to the `Request` class.
 - Added `headers` property to the `Request` class.
+- Added `jasmine` tests.
 
 [0.2.0] - 2017-07-05
 --------------------
