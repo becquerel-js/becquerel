@@ -21,6 +21,16 @@ describe('Bq', function () {
         });
     });
 
+    describe('.routes', function () {
+        it('is an object', function () {
+            expect(new Bq().routes).toEqual(any(Object));
+        });
+
+        it('is instantiated without any properties', function () {
+            expect(new Bq().routes).toEqual({});
+        });
+    });
+
     describe('.run', function () {
         it('is a function', function () {
             expect(new Bq().run).toEqual(any(Function));
