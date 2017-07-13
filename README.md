@@ -1,6 +1,7 @@
 @becquerel/framework
 ====================
 [![npm Version][NPM VERSION BADGE]][NPM PAGE]
+[![Node.js][NODE VERSION BADGE]][NODE PAGE]
 [![GitHub License][LICENSE BADGE]][LICENSE PAGE]
 [![Build Status][BUILD BADGE]][BUILD PAGE]
 
@@ -41,5 +42,7 @@ The MIT License (Expat). See the [license file](LICENSE) for details.
 [BUILD PAGE]: https://travis-ci.org/becquerel-js/framework
 [LICENSE BADGE]: https://img.shields.io/badge/license-MIT%20License-blue.svg?style=flat-square
 [LICENSE PAGE]: https://github.com/becquerel-js/framework/blob/master/LICENSE
+[NODE PAGE]: https://nodejs.org/
+[NODE VERSION BADGE]: https://img.shields.io/badge/node-%3E%3D6.11-%23010101.svg?style=flat-square
 [NPM PAGE]: https://www.npmjs.com/package/@becquerel/framework
 [NPM VERSION BADGE]: https://img.shields.io/npm/v/@becquerel/framework.svg?style=flat-square
