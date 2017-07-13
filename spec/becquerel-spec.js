@@ -4,7 +4,7 @@ const any = jasmine.any;
 
 describe('Bq', function () {
     beforeEach(function () {
-        process.env['BQ_RUN_MSG'] = 'false';
+        process.env['BQ_RUN_DISPLAY_MSG'] = 'false';
     });
 
     it('is a class/function', function () {
