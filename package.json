@@ -14,9 +14,14 @@
     "url": "git+https://github.com/becquerel-js/framework.git"
   },
   "keywords": [
+    "api",
+    "app",
+    "bq",
+    "becquerel",
     "framework",
-    "web",
-    "http"
+    "http",
+    "router",
+    "web"
   ],
   "author": "James Benner",
   "license": "MIT",
