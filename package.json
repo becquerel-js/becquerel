@@ -24,9 +24,7 @@
     "url": "https://github.com/becquerel-js/framework/issues"
   },
   "homepage": "https://github.com/becquerel-js/framework#readme",
-  "dependencies": {
-    "chalk": "^2.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "jasmine": "^2.6.0"
   }
