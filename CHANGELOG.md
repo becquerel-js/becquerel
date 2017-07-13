@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [Unreleased]
 ------------
 ### Added
-- Added `BQ_RUN_DISPLAY_MSG` config envvar.
+- Added `BQ_RUN_DEFAULT_PORT` and `BQ_RUN_DISPLAY_MSG` config envvars.
 
 [0.3.0] - 2017-07-13
 --------------------

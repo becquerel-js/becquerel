@@ -11,7 +11,7 @@ describe('Bq', function () {
         expect(Bq).toEqual(any(Function));
     });
 
-    describe('.route', function () {
+    describe('#route', function () {
         it('is a function', function () {
             expect(new Bq().route).toEqual(any(Function));
         });
@@ -21,7 +21,7 @@ describe('Bq', function () {
         });
     });
 
-    describe('.routes', function () {
+    describe('#routes', function () {
         it('is an object', function () {
             expect(new Bq().routes).toEqual(any(Object));
         });
@@ -31,7 +31,7 @@ describe('Bq', function () {
         });
     });
 
-    describe('.run', function () {
+    describe('#run', function () {
         it('is a function', function () {
             expect(new Bq().run).toEqual(any(Function));
         });
@@ -41,7 +41,7 @@ describe('Bq', function () {
         });
     });
 
-    describe('.serve', function () {
+    describe('#serve', function () {
         it('is a function', function () {
             expect(new Bq().serve).toEqual(any(Function));
         });
