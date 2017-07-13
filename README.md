@@ -37,7 +37,7 @@ app.run();
 Environment Variables
 ---------------------
 ### `BQ_RUN_DEFAULT_PORT` (default: `8080`)
-The port that the app will bind to if `settings.port` is not passed to `.run()`.
+The port that the app will bind to if `settings.port` is not passed to `#run()`.
 
 ### `BQ_RUN_DISPLAY_MSG` (default: `true`)
 If `true` the app will display the `Now listening at <${uri}>.` message upon launch.
