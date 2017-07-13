@@ -34,6 +34,11 @@ app.route('/hello', {
 app.run();
 ```
 
+Environment Variables
+---------------------
+### `BQ_RUN_DISPLAY_MSG` (default: `true`)
+If `true` the app will display the `Now listening at <${uri}>.` message upon launch.
+
 License
 -------
 The MIT License (Expat). See the [license file](LICENSE) for details.
