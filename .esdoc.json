@@ -1,0 +1,10 @@
+{
+    "source": "./lib",
+    "destination": "./doc",
+    "manual": {
+        "changelog": ["./CHANGELOG.md"]
+    },
+    "plugins": [
+        {"name": "esdoc-node"}
+    ]
+}
