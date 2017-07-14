@@ -7,6 +7,7 @@
   },
   "main": "./lib/index.js",
   "scripts": {
+    "esdoc": "esdoc",
     "test": "jasmine"
   },
   "repository": {
@@ -31,6 +32,7 @@
   "homepage": "https://github.com/becquerel-js/framework#readme",
   "dependencies": {},
   "devDependencies": {
+    "esdoc": "^0.5.2",
     "esdoc-node": "^1.0.2",
     "jasmine": "^2.6.0"
   }

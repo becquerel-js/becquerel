@@ -36,6 +36,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Response.js~Response.html">Response</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/index.js~Bq.html">Bq</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-env">env</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Route">Route</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RouteHandler">RouteHandler</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -166,13 +168,16 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-route">route</a></span></span><span data-ice="signature">(path: <span>*</span>, methods: <span>*</span>): <span>*</span></span>
+          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-route">route</a></span></span><span data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, route: <span><a href="typedef/index.html#static-typedef-Route">Route</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(request: <span><a href="class/lib/Request.js~Request.html">Request</a></span>, response: <span><a href="class/lib/Response.js~Response.html">Response</a></span>)</span></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>A helper method to work with the instance&apos;s internal <code>#routes</code> property.
+Acts as a getter if the <code>route</code> parameter is not specified and a setter
+if it is. This method always returns the specified route object.</p>
+</div>
       </div>
     </td>
     <td>
@@ -193,13 +198,14 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-run">run</a></span></span><span data-ice="signature">(settings: {}): <span>*</span></span>
+          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-run">run</a></span></span><span data-ice="signature">(settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>http.Server</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Start the app server.</p>
+</div>
       </div>
     </td>
     <td>
@@ -345,18 +351,21 @@
     
     
     
-    <span data-ice="name">route</span><span data-ice="signature">(path: <span>*</span>, methods: <span>*</span>): <span>*</span></span>
+    <span data-ice="name">route</span><span data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, route: <span><a href="typedef/index.html#static-typedef-Route">Route</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(request: <span><a href="class/lib/Request.js~Request.html">Request</a></span>, response: <span><a href="class/lib/Response.js~Response.html">Response</a></span>)</span></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber27">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>A helper method to work with the instance&apos;s internal <code>#routes</code> property.
+Acts as a getter if the <code>route</code> parameter is not specified and a setter
+if it is. This method always returns the specified route object.</p>
+</div>
 
   
 
@@ -370,15 +379,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">path</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The path name to get/set the route (e.g. &apos;/resource&apos;).</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">methods</td>
-      <td data-ice="type"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="name" data-depth="0">route</td>
+      <td data-ice="type"><span><a href="typedef/index.html#static-typedef-Route">Route</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>An object consisting of callback functions mapped to method keys.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -390,7 +401,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span>*</span></td>
+          <td class="return-type" data-ice="returnType"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(request: <span><a href="class/lib/Request.js~Request.html">Request</a></span>, response: <span><a href="class/lib/Response.js~Response.html">Response</a></span>)</span></span></td>
           
         </tr>
       </tbody>
@@ -422,18 +433,19 @@
     
     
     
-    <span data-ice="name">run</span><span data-ice="signature">(settings: {}): <span>*</span></span>
+    <span data-ice="name">run</span><span data-ice="signature">(settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>http.Server</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber35">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber58">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Start the app server.</p>
+</div>
 
   
 
@@ -447,10 +459,11 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">settings</td>
-      <td data-ice="type">{}</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
-<li>default: {}</li></ul></td>
-      <td data-ice="description"></td>
+<li>default: {port: env(&apos;BQ_RUN_DEFAULT_PORT&apos;)}</li></ul></td>
+      <td data-ice="description"><p>The port setting defaults to <code>8080</code> if no envvar is set.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -462,8 +475,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type" data-ice="returnType"><span>http.Server</span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>The server instance that has been started.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -498,7 +512,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber78">source</a></span></span>
     </span>
   </h3>
 

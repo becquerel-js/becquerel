@@ -36,6 +36,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/Response.js~Response.html">Response</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/index.js~Bq.html">Bq</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-env">env</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Route">Route</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-RouteHandler">RouteHandler</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -67,14 +69,37 @@ module.exports = class Bq {
         });
     }
 
-    route(path, methods) {
-        if (methods) {
-            this.routes[path] = methods;
+    /**
+     * @typedef {function(request: Request, response: Response)} RouteHandler
+     */
+
+    /**
+     * @typedef {Object&lt;string, RouteHandler&gt;} Route
+     */
+
+    /**
+     * A helper method to work with the instance&apos;s internal `#routes` property.
+     * Acts as a getter if the `route` parameter is not specified and a setter
+     * if it is. This method always returns the specified route object.
+     *
+     * @param {string} path - The path name to get/set the route (e.g. &apos;/resource&apos;).
+     * @param {Route} [route] - An object consisting of callback functions mapped to method keys.
+     * @return {function(request: Request, response: Response)}
+     */
+    route(path, route) {
+        if (route) {
+            this.routes[path] = route;
         }
 
         return this.routes[path] || noop;
     }
 
+    /**
+     * Start the app server.
+     *
+     * @param {Object} [settings={port: env(&apos;BQ_RUN_DEFAULT_PORT&apos;)}] - The port setting defaults to `8080` if no envvar is set.
+     * @return {http.Server} The server instance that has been started.
+     */
     run(settings = {}) {
         const defaults = {port: env(&apos;BQ_RUN_DEFAULT_PORT&apos;)};
         const _settings = Object.assign(defaults, settings);

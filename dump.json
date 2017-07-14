@@ -1021,7 +1021,7 @@
     "__docId__": 43,
     "kind": "file",
     "name": "lib/index.js",
-    "content": "const env = require('./env');\nconst http = require('http');\nconst Request = require('./Request');\nconst Response = require('./Response');\nconst url = require('url');\n\nconst noop = () => {};\n\nmodule.exports = class Bq {\n    constructor() {\n        this.routes = {};\n\n        const defaults = {\n            BQ_RUN_DEFAULT_PORT: 8080,\n            BQ_RUN_DISPLAY_MSG: true\n        };\n\n        Object.entries(defaults).forEach(pair => {\n            const [name, value] = pair;\n\n            if (env(name) === undefined) {\n                env(name, value);\n            }\n        });\n    }\n\n    route(path, methods) {\n        if (methods) {\n            this.routes[path] = methods;\n        }\n\n        return this.routes[path] || noop;\n    }\n\n    run(settings = {}) {\n        const defaults = {port: env('BQ_RUN_DEFAULT_PORT')};\n        const _settings = Object.assign(defaults, settings);\n        const uri = `http://localhost:${_settings.port}`;\n        const server = http.createServer(this.serve.bind(this));\n\n        if (env('BQ_RUN_DISPLAY_MSG')) {\n            console.log(`Now listening at <${uri}>.`);\n        }\n\n        return server.listen(_settings.port);\n    }\n\n    /**\n     * The callback invoked by `#run()` when the server receives a client request.\n     *\n     * @param {http.IncomingMessage} request\n     * @param {http.IncomingMessage} response\n     * @return {boolean}\n     */\n    serve(request, response) {\n        let _request = new Request(request);\n        let _response = new Response(response);\n        let route = this.route(_request.path);\n        let method = _request.method;\n\n        if (route && route[method]) {\n            route[method](_request, _response);\n        } else {\n            Object.assign(_response, {statusCode: 404, text: 'Resource not found.'});\n        }\n\n        return _response.send();\n    }\n};\n",
+    "content": "const env = require('./env');\nconst http = require('http');\nconst Request = require('./Request');\nconst Response = require('./Response');\nconst url = require('url');\n\nconst noop = () => {};\n\nmodule.exports = class Bq {\n    constructor() {\n        this.routes = {};\n\n        const defaults = {\n            BQ_RUN_DEFAULT_PORT: 8080,\n            BQ_RUN_DISPLAY_MSG: true\n        };\n\n        Object.entries(defaults).forEach(pair => {\n            const [name, value] = pair;\n\n            if (env(name) === undefined) {\n                env(name, value);\n            }\n        });\n    }\n\n    /**\n     * @typedef {function(request: Request, response: Response)} RouteHandler\n     */\n\n    /**\n     * @typedef {Object<string, RouteHandler>} Route\n     */\n\n    /**\n     * A helper method to work with the instance's internal `#routes` property.\n     * Acts as a getter if the `route` parameter is not specified and a setter\n     * if it is. This method always returns the specified route object.\n     *\n     * @param {string} path - The path name to get/set the route (e.g. '/resource').\n     * @param {Route} [route] - An object consisting of callback functions mapped to method keys.\n     * @return {function(request: Request, response: Response)}\n     */\n    route(path, route) {\n        if (route) {\n            this.routes[path] = route;\n        }\n\n        return this.routes[path] || noop;\n    }\n\n    /**\n     * Start the app server.\n     *\n     * @param {Object} [settings={port: env('BQ_RUN_DEFAULT_PORT')}] - The port setting defaults to `8080` if no envvar is set.\n     * @return {http.Server} The server instance that has been started.\n     */\n    run(settings = {}) {\n        const defaults = {port: env('BQ_RUN_DEFAULT_PORT')};\n        const _settings = Object.assign(defaults, settings);\n        const uri = `http://localhost:${_settings.port}`;\n        const server = http.createServer(this.serve.bind(this));\n\n        if (env('BQ_RUN_DISPLAY_MSG')) {\n            console.log(`Now listening at <${uri}>.`);\n        }\n\n        return server.listen(_settings.port);\n    }\n\n    /**\n     * The callback invoked by `#run()` when the server receives a client request.\n     *\n     * @param {http.IncomingMessage} request\n     * @param {http.IncomingMessage} response\n     * @return {boolean}\n     */\n    serve(request, response) {\n        let _request = new Request(request);\n        let _response = new Response(response);\n        let route = this.route(_request.path);\n        let method = _request.method;\n\n        if (route && route[method]) {\n            route[method](_request, _response);\n        } else {\n            Object.assign(_response, {statusCode: 404, text: 'Resource not found.'});\n        }\n\n        return _response.send();\n    }\n};\n",
     "static": true,
     "longname": "lib/index.js",
     "access": null,
@@ -1250,6 +1250,40 @@
   },
   {
     "__docId__": 53,
+    "kind": "typedef",
+    "name": "RouteHandler",
+    "memberof": "lib/index.js~Bq",
+    "static": true,
+    "longname": "lib/index.js~Bq.RouteHandler",
+    "access": null,
+    "description": "",
+    "type": {
+      "types": [
+        "function(request: Request, response: Response)"
+      ],
+      "optional": false,
+      "name": "RouteHandler"
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "typedef",
+    "name": "Route",
+    "memberof": "lib/index.js~Bq",
+    "static": true,
+    "longname": "lib/index.js~Bq.Route",
+    "access": null,
+    "description": "",
+    "type": {
+      "types": [
+        "Object<string, RouteHandler>"
+      ],
+      "optional": false,
+      "name": "Route"
+    }
+  },
+  {
+    "__docId__": 55,
     "kind": "method",
     "name": "route",
     "memberof": "lib/index.js~Bq",
@@ -1258,37 +1292,41 @@
     "static": false,
     "longname": "lib/index.js~Bq#route",
     "access": null,
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "A helper method to work with the instance's internal `#routes` property.\nActs as a getter if the `route` parameter is not specified and a setter\nif it is. This method always returns the specified route object.",
+    "lineNumber": 44,
     "params": [
       {
-        "name": "path",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "path",
+        "description": "The path name to get/set the route (e.g. '/resource')."
       },
       {
-        "name": "methods",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Route"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "route",
+        "description": "An object consisting of callback functions mapped to method keys."
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "function(request: Request, response: Response)"
+      ],
+      "spread": false,
+      "description": ""
     }
   },
   {
-    "__docId__": 54,
+    "__docId__": 56,
     "kind": "method",
     "name": "run",
     "memberof": "lib/index.js~Bq",
@@ -1297,34 +1335,33 @@
     "static": false,
     "longname": "lib/index.js~Bq#run",
     "access": null,
-    "description": null,
-    "lineNumber": 35,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "Start the app server.",
+    "lineNumber": 58,
     "params": [
       {
-        "name": "settings",
-        "optional": true,
+        "nullable": null,
         "types": [
-          "{}"
+          "Object"
         ],
-        "defaultRaw": {},
-        "defaultValue": "{}"
+        "spread": false,
+        "optional": true,
+        "defaultValue": "{port: env('BQ_RUN_DEFAULT_PORT')}",
+        "defaultRaw": "{port: env('BQ_RUN_DEFAULT_PORT')}",
+        "name": "settings",
+        "description": "The port setting defaults to `8080` if no envvar is set."
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "http.Server"
+      ],
+      "spread": false,
+      "description": "The server instance that has been started."
     }
   },
   {
-    "__docId__": 55,
+    "__docId__": 57,
     "kind": "method",
     "name": "serve",
     "memberof": "lib/index.js~Bq",
@@ -1334,7 +1371,7 @@
     "longname": "lib/index.js~Bq#serve",
     "access": null,
     "description": "The callback invoked by `#run()` when the server receives a client request.",
-    "lineNumber": 55,
+    "lineNumber": 78,
     "params": [
       {
         "nullable": null,
@@ -1367,7 +1404,7 @@
     }
   },
   {
-    "__docId__": 57,
+    "__docId__": 59,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -1379,7 +1416,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 60,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -1391,7 +1428,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 61,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -1403,7 +1440,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 62,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -1415,7 +1452,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 63,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1427,7 +1464,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 64,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1439,7 +1476,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 65,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1451,7 +1488,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 66,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1463,7 +1500,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 67,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1475,7 +1512,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 68,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1487,7 +1524,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 69,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -1499,7 +1536,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 70,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -1511,7 +1548,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 71,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -1523,7 +1560,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 72,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -1535,7 +1572,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 73,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -1547,7 +1584,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 74,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -1559,7 +1596,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 75,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -1571,7 +1608,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 76,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -1583,7 +1620,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 77,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -1595,7 +1632,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 78,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1607,7 +1644,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 79,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1619,7 +1656,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 80,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -1631,7 +1668,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 79,
+    "__docId__": 81,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -1643,7 +1680,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 82,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -1655,7 +1692,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 83,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -1667,7 +1704,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 84,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -1679,7 +1716,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 85,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -1691,7 +1728,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 86,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -1703,7 +1740,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 87,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -1715,7 +1752,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 88,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -1727,7 +1764,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 89,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -1739,7 +1776,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 90,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -1751,7 +1788,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 91,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -1763,7 +1800,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 92,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -1775,7 +1812,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 91,
+    "__docId__": 93,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -1787,7 +1824,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 94,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -1799,7 +1836,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 93,
+    "__docId__": 95,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -1811,7 +1848,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 96,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -1823,7 +1860,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 95,
+    "__docId__": 97,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -1835,7 +1872,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 96,
+    "__docId__": 98,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -1847,7 +1884,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 99,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -1859,7 +1896,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 100,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -1871,7 +1908,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 99,
+    "__docId__": 101,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -1883,7 +1920,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 100,
+    "__docId__": 102,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -1895,7 +1932,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 101,
+    "__docId__": 103,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -1907,7 +1944,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 104,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -1919,7 +1956,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 103,
+    "__docId__": 105,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -1932,7 +1969,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 105,
+    "__docId__": 107,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -1944,7 +1981,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 106,
+    "__docId__": 108,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -1956,7 +1993,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 109,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -1968,7 +2005,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 108,
+    "__docId__": 110,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -1980,7 +2017,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 109,
+    "__docId__": 111,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -1992,7 +2029,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 110,
+    "__docId__": 112,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -2004,7 +2041,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 113,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -2016,7 +2053,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 112,
+    "__docId__": 114,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

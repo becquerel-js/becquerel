@@ -469,13 +469,13 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/response.js~response#json",
-    "class/lib/Response.js~Response.html#instance-get-json",
+    "class/lib/Response.js~Response.html#instance-set-json",
     "lib/Response.js~Response#json",
     "member"
   ],
   [
     "lib/response.js~response#json",
-    "class/lib/Response.js~Response.html#instance-set-json",
+    "class/lib/Response.js~Response.html#instance-get-json",
     "lib/Response.js~Response#json",
     "member"
   ],
@@ -487,13 +487,13 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/response.js~response#statuscode",
-    "class/lib/Response.js~Response.html#instance-get-statusCode",
+    "class/lib/Response.js~Response.html#instance-set-statusCode",
     "lib/Response.js~Response#statusCode",
     "member"
   ],
   [
     "lib/response.js~response#statuscode",
-    "class/lib/Response.js~Response.html#instance-set-statusCode",
+    "class/lib/Response.js~Response.html#instance-get-statusCode",
     "lib/Response.js~Response#statusCode",
     "member"
   ],
@@ -556,5 +556,17 @@ window.esdocSearchIndex = [
     "class/lib/index.js~Bq.html#instance-method-serve",
     "lib/index.js~Bq#serve",
     "method"
+  ],
+  [
+    "lib/index.js~bq.route",
+    "typedef/index.html#static-typedef-Route",
+    "lib/index.js~Bq.Route",
+    "typedef"
+  ],
+  [
+    "lib/index.js~bq.routehandler",
+    "typedef/index.html#static-typedef-RouteHandler",
+    "lib/index.js~Bq.RouteHandler",
+    "typedef"
   ]
 ]
