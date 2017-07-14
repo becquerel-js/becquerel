@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ------------
 ### Added
 - Added `BQ_RUN_DEFAULT_PORT` and `BQ_RUN_DISPLAY_MSG` config envvars.
+- Added more ESDoc comments.
 
 ### Changed
 - The required Node version is now `>=7.10`.
