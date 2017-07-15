@@ -45,14 +45,28 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/Response.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">module.exports = class Response {
     constructor(response) {
+        /**
+         * @type {string}
+         */
         this._body = &apos;&apos;;
+
+        /**
+         * @type {http.ServerResponse}
+         * @see https://nodejs.org/api/http.html#http_class_http_serverresponse
+         */
         this._response = response;
     }
 
+    /**
+     * @type {string}
+     */
     get body() {
         return this._body;
     }
 
+    /**
+     * @type {string}
+     */
     set body(data) {
         this._body = data;
     }
@@ -142,11 +156,18 @@
         this.body = data;
     }
 
+    /**
+     * Calls and returns the result of `http.ServerResponse#write(this.body)`
+     * and resets `this.body` back to an empty string.
+     *
+     * @return {boolean}
+     * @see https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback
+     */
     write() {
         const body = this.body;
         this.body = &apos;&apos;;
 
-        this._response.write(body);
+        return this._response.write(body);
     }
 };
 </code></pre>

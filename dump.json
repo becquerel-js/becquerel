@@ -295,7 +295,7 @@
     "__docId__": 14,
     "kind": "file",
     "name": "lib/Response.js",
-    "content": "module.exports = class Response {\n    constructor(response) {\n        this._body = '';\n        this._response = response;\n    }\n\n    get body() {\n        return this._body;\n    }\n\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {*}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    /**\n     * @type {number}\n     */\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    /**\n     * @type {number}\n     */\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        this._response.write(body);\n    }\n};\n",
+    "content": "module.exports = class Response {\n    constructor(response) {\n        /**\n         * @type {string}\n         */\n        this._body = '';\n\n        /**\n         * @type {http.ServerResponse}\n         * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n         */\n        this._response = response;\n    }\n\n    /**\n     * @type {string}\n     */\n    get body() {\n        return this._body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {*}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    /**\n     * @type {number}\n     */\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    /**\n     * @type {number}\n     */\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Calls and returns the result of `http.ServerResponse#write(this.body)`\n     * and resets `this.body` back to an empty string.\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback\n     */\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        return this._response.write(body);\n    }\n};\n",
     "static": true,
     "longname": "lib/Response.js",
     "access": null,
@@ -360,19 +360,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#_body",
     "access": null,
-    "description": null,
-    "lineNumber": 3,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 6,
     "type": {
+      "nullable": null,
       "types": [
         "string"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -383,19 +379,18 @@
     "static": false,
     "longname": "lib/Response.js~Response#_response",
     "access": null,
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
+    "description": "",
+    "see": [
+      "https://nodejs.org/api/http.html#http_class_http_serverresponse"
     ],
+    "lineNumber": 12,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "http.ServerResponse"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -408,19 +403,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#body",
     "access": null,
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 18,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -433,19 +424,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#body",
     "access": null,
-    "description": null,
-    "lineNumber": 11,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 25,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -457,7 +444,7 @@
     "longname": "lib/Response.js~Response#_body",
     "access": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 26,
     "undocument": true,
     "unknown": [
       {
@@ -482,7 +469,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": "",
-    "lineNumber": 18,
+    "lineNumber": 32,
     "type": {
       "nullable": null,
       "types": [
@@ -503,7 +490,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": "",
-    "lineNumber": 25,
+    "lineNumber": 39,
     "type": {
       "nullable": null,
       "types": [
@@ -524,7 +511,7 @@
     "longname": "lib/Response.js~Response#json",
     "access": null,
     "description": "",
-    "lineNumber": 32,
+    "lineNumber": 46,
     "type": {
       "nullable": null,
       "types": [
@@ -545,7 +532,7 @@
     "longname": "lib/Response.js~Response#json",
     "access": null,
     "description": "",
-    "lineNumber": 39,
+    "lineNumber": 53,
     "type": {
       "nullable": null,
       "types": [
@@ -564,7 +551,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 40,
+    "lineNumber": 54,
     "undocument": true,
     "unknown": [
       {
@@ -587,7 +574,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 41,
+    "lineNumber": 55,
     "undocument": true,
     "unknown": [
       {
@@ -612,7 +599,7 @@
     "longname": "lib/Response.js~Response#html",
     "access": null,
     "description": "",
-    "lineNumber": 47,
+    "lineNumber": 61,
     "type": {
       "nullable": null,
       "types": [
@@ -633,7 +620,7 @@
     "longname": "lib/Response.js~Response#html",
     "access": null,
     "description": "",
-    "lineNumber": 54,
+    "lineNumber": 68,
     "type": {
       "nullable": null,
       "types": [
@@ -652,7 +639,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 55,
+    "lineNumber": 69,
     "undocument": true,
     "unknown": [
       {
@@ -675,7 +662,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 56,
+    "lineNumber": 70,
     "undocument": true,
     "unknown": [
       {
@@ -703,7 +690,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_response_end_data_encoding_callback"
     ],
-    "lineNumber": 65,
+    "lineNumber": 79,
     "params": [],
     "return": {
       "nullable": null,
@@ -725,7 +712,7 @@
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
     "description": "",
-    "lineNumber": 74,
+    "lineNumber": 88,
     "type": {
       "nullable": null,
       "types": [
@@ -746,7 +733,7 @@
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
     "description": "",
-    "lineNumber": 81,
+    "lineNumber": 95,
     "type": {
       "nullable": null,
       "types": [
@@ -767,7 +754,7 @@
     "longname": "lib/Response.js~Response#text",
     "access": null,
     "description": "",
-    "lineNumber": 88,
+    "lineNumber": 102,
     "type": {
       "nullable": null,
       "types": [
@@ -788,7 +775,7 @@
     "longname": "lib/Response.js~Response#text",
     "access": null,
     "description": "",
-    "lineNumber": 95,
+    "lineNumber": 109,
     "type": {
       "nullable": null,
       "types": [
@@ -807,7 +794,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 96,
+    "lineNumber": 110,
     "undocument": true,
     "unknown": [
       {
@@ -830,7 +817,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 97,
+    "lineNumber": 111,
     "undocument": true,
     "unknown": [
       {
@@ -854,16 +841,20 @@
     "static": false,
     "longname": "lib/Response.js~Response#write",
     "access": null,
-    "description": null,
-    "lineNumber": 100,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
+    "description": "Calls and returns the result of `http.ServerResponse#write(this.body)`\nand resets `this.body` back to an empty string.",
+    "see": [
+      "https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback"
     ],
-    "params": []
+    "lineNumber": 121,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": ""
+    }
   },
   {
     "__docId__": 40,
@@ -874,7 +865,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 102,
+    "lineNumber": 123,
     "undocument": true,
     "unknown": [
       {
