@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "lib/Request.js",
-    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    /**\n     * Creates an instance of `Request`.\n     *\n     * @param {http.IncomingMessage} request\n     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage\n     */\n    constructor(request) {\n        const _url = url.parse(request.url);\n\n        /** @type {string} */\n        this.accept = request.headers.accept;\n\n        /** @type {string} */\n        this.acceptLanguage = request.headers['accept-language'];\n\n        /** @type {string} */\n        this.dnt = request.headers['dnt'];\n\n        /** @type {Object} */\n        this.headers = request.headers;\n\n        /** @type {string} */\n        this.host = request.headers['host'];\n\n        /** @type {string} */\n        this.method = request.method.toLowerCase();\n\n        /** @type {string} */\n        this.path = _url.pathname;\n\n        /**\n         * @type {Object}\n         * @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options\n         */\n        this.query = querystring.parse(_url.query);\n\n        /** @type {string} */\n        this.userAgent = request.headers['user-agent'];\n    }\n};\n",
+    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    /**\n     * Creates an instance of `Request`.\n     *\n     * @param {http.IncomingMessage} request\n     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage\n     */\n    constructor(request) {\n        const _url = url.parse(request.url);\n\n        /** @type {string} */\n        this.accept = request.headers.accept;\n\n        /** @type {string} */\n        this.acceptLanguage = request.headers['accept-language'];\n\n        /** @type {string} */\n        this.dnt = request.headers['dnt'];\n\n        /** @type {Object} */\n        this.headers = request.headers;\n\n        /** @type {string} */\n        this.host = request.headers['host'];\n\n        /** @type {string} */\n        this.method = request.method.toLowerCase();\n\n        /** @type {string} */\n        this.path = _url.pathname;\n\n        /**\n         * @type {Object<string, string|Array<string>>}\n         * @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options\n         */\n        this.query = querystring.parse(_url.query);\n\n        /** @type {string} */\n        this.userAgent = request.headers['user-agent'];\n    }\n};\n",
     "static": true,
     "longname": "lib/Request.js",
     "access": null,
@@ -261,7 +261,7 @@
     "type": {
       "nullable": null,
       "types": [
-        "Object"
+        "Object<string, string|Array<string>>"
       ],
       "spread": false,
       "description": null
