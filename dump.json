@@ -295,7 +295,7 @@
     "__docId__": 14,
     "kind": "file",
     "name": "lib/Response.js",
-    "content": "module.exports = class Response {\n    constructor(response) {\n        this._body = '';\n        this._response = response;\n    }\n\n    get body() {\n        return this._body;\n    }\n\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {string}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        this._response.write(body);\n    }\n};\n",
+    "content": "module.exports = class Response {\n    constructor(response) {\n        this._body = '';\n        this._response = response;\n    }\n\n    get body() {\n        return this._body;\n    }\n\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {*}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    /**\n     * @type {number}\n     */\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    /**\n     * @type {number}\n     */\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        this._response.write(body);\n    }\n};\n",
     "static": true,
     "longname": "lib/Response.js",
     "access": null,
@@ -528,7 +528,7 @@
     "type": {
       "nullable": null,
       "types": [
-        "string"
+        "*"
       ],
       "spread": false,
       "description": null
@@ -724,19 +724,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
-    "description": null,
-    "lineNumber": 71,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 74,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "number"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -749,19 +745,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
-    "description": null,
-    "lineNumber": 75,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 81,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "number"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -775,7 +767,7 @@
     "longname": "lib/Response.js~Response#text",
     "access": null,
     "description": "",
-    "lineNumber": 82,
+    "lineNumber": 88,
     "type": {
       "nullable": null,
       "types": [
@@ -796,7 +788,7 @@
     "longname": "lib/Response.js~Response#text",
     "access": null,
     "description": "",
-    "lineNumber": 89,
+    "lineNumber": 95,
     "type": {
       "nullable": null,
       "types": [
@@ -815,7 +807,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 90,
+    "lineNumber": 96,
     "undocument": true,
     "unknown": [
       {
@@ -838,7 +830,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 91,
+    "lineNumber": 97,
     "undocument": true,
     "unknown": [
       {
@@ -863,7 +855,7 @@
     "longname": "lib/Response.js~Response#write",
     "access": null,
     "description": null,
-    "lineNumber": 94,
+    "lineNumber": 100,
     "undocument": true,
     "unknown": [
       {
@@ -882,7 +874,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 96,
+    "lineNumber": 102,
     "undocument": true,
     "unknown": [
       {

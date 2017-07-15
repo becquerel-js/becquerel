@@ -72,7 +72,7 @@
     }
 
     /**
-     * @type {string}
+     * @type {*}
      */
     get json() {
         return JSON.parse(this.body);
@@ -113,10 +113,16 @@
         return this._response.end();
     }
 
+    /**
+     * @type {number}
+     */
     get statusCode() {
         return this._response.statusCode;
     }
 
+    /**
+     * @type {number}
+     */
     set statusCode(code) {
         this._response.statusCode = code;
     }
