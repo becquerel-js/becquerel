@@ -49,14 +49,30 @@ const url = require(&apos;url&apos;);
 module.exports = class Request {
     constructor(request) {
         const _url = url.parse(request.url);
+
+        /** @type {string} */
         this.accept = request.headers.accept;
+
+        /** @type {string} */
         this.acceptLanguage = request.headers[&apos;accept-language&apos;];
+
+        /** @type {string} */
         this.dnt = request.headers[&apos;dnt&apos;];
+
         this.headers = request.headers;
+
+        /** @type {string} */
         this.host = request.headers[&apos;host&apos;];
+
+        /** @type {string} */
         this.method = request.method.toLowerCase();
+
+        /** @type {string} */
         this.path = _url.pathname;
+
         this.query = querystring.parse(_url.query);
+
+        /** @type {string} */
         this.userAgent = request.headers[&apos;user-agent&apos;];
     }
 };

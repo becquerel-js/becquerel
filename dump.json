@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "lib/Request.js",
-    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    constructor(request) {\n        const _url = url.parse(request.url);\n        this.accept = request.headers.accept;\n        this.acceptLanguage = request.headers['accept-language'];\n        this.dnt = request.headers['dnt'];\n        this.headers = request.headers;\n        this.host = request.headers['host'];\n        this.method = request.method.toLowerCase();\n        this.path = _url.pathname;\n        this.query = querystring.parse(_url.query);\n        this.userAgent = request.headers['user-agent'];\n    }\n};\n",
+    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    constructor(request) {\n        const _url = url.parse(request.url);\n\n        /** @type {string} */\n        this.accept = request.headers.accept;\n\n        /** @type {string} */\n        this.acceptLanguage = request.headers['accept-language'];\n\n        /** @type {string} */\n        this.dnt = request.headers['dnt'];\n\n        this.headers = request.headers;\n\n        /** @type {string} */\n        this.host = request.headers['host'];\n\n        /** @type {string} */\n        this.method = request.method.toLowerCase();\n\n        /** @type {string} */\n        this.path = _url.pathname;\n\n        this.query = querystring.parse(_url.query);\n\n        /** @type {string} */\n        this.userAgent = request.headers['user-agent'];\n    }\n};\n",
     "static": true,
     "longname": "lib/Request.js",
     "access": null,
@@ -121,18 +121,14 @@
     "longname": "lib/Request.js~Request#accept",
     "access": null,
     "description": null,
-    "lineNumber": 7,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 9,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -144,18 +140,14 @@
     "longname": "lib/Request.js~Request#acceptLanguage",
     "access": null,
     "description": null,
-    "lineNumber": 8,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 12,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -167,18 +159,14 @@
     "longname": "lib/Request.js~Request#dnt",
     "access": null,
     "description": null,
-    "lineNumber": 9,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 15,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -190,7 +178,7 @@
     "longname": "lib/Request.js~Request#headers",
     "access": null,
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 17,
     "undocument": true,
     "unknown": [
       {
@@ -213,18 +201,14 @@
     "longname": "lib/Request.js~Request#host",
     "access": null,
     "description": null,
-    "lineNumber": 11,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 20,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -236,18 +220,14 @@
     "longname": "lib/Request.js~Request#method",
     "access": null,
     "description": null,
-    "lineNumber": 12,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 23,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -259,18 +239,14 @@
     "longname": "lib/Request.js~Request#path",
     "access": null,
     "description": null,
-    "lineNumber": 13,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 26,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -282,7 +258,7 @@
     "longname": "lib/Request.js~Request#query",
     "access": null,
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 28,
     "undocument": true,
     "unknown": [
       {
@@ -305,18 +281,14 @@
     "longname": "lib/Request.js~Request#userAgent",
     "access": null,
     "description": null,
-    "lineNumber": 15,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 31,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
