@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "lib/Request.js",
-    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    constructor(request) {\n        const _url = url.parse(request.url);\n\n        /** @type {string} */\n        this.accept = request.headers.accept;\n\n        /** @type {string} */\n        this.acceptLanguage = request.headers['accept-language'];\n\n        /** @type {string} */\n        this.dnt = request.headers['dnt'];\n\n        this.headers = request.headers;\n\n        /** @type {string} */\n        this.host = request.headers['host'];\n\n        /** @type {string} */\n        this.method = request.method.toLowerCase();\n\n        /** @type {string} */\n        this.path = _url.pathname;\n\n        this.query = querystring.parse(_url.query);\n\n        /** @type {string} */\n        this.userAgent = request.headers['user-agent'];\n    }\n};\n",
+    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    /**\n     * Creates an instance of `Request`.\n     *\n     * @param {http.IncomingMessage} request\n     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage\n     */\n    constructor(request) {\n        const _url = url.parse(request.url);\n\n        /** @type {string} */\n        this.accept = request.headers.accept;\n\n        /** @type {string} */\n        this.acceptLanguage = request.headers['accept-language'];\n\n        /** @type {string} */\n        this.dnt = request.headers['dnt'];\n\n        /** @type {Object} */\n        this.headers = request.headers;\n\n        /** @type {string} */\n        this.host = request.headers['host'];\n\n        /** @type {string} */\n        this.method = request.method.toLowerCase();\n\n        /** @type {string} */\n        this.path = _url.pathname;\n\n        /**\n         * @type {Object}\n         * @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options\n         */\n        this.query = querystring.parse(_url.query);\n\n        /** @type {string} */\n        this.userAgent = request.headers['user-agent'];\n    }\n};\n",
     "static": true,
     "longname": "lib/Request.js",
     "access": null,
@@ -94,21 +94,21 @@
     "static": false,
     "longname": "lib/Request.js~Request#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
+    "description": "Creates an instance of `Request`.",
+    "see": [
+      "https://nodejs.org/api/http.html#http_class_http_incomingmessage"
     ],
+    "lineNumber": 11,
     "params": [
       {
-        "name": "request",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "http.IncomingMessage"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "request",
+        "description": ""
       }
     ]
   },
@@ -121,7 +121,7 @@
     "longname": "lib/Request.js~Request#accept",
     "access": null,
     "description": null,
-    "lineNumber": 9,
+    "lineNumber": 15,
     "type": {
       "nullable": null,
       "types": [
@@ -140,7 +140,7 @@
     "longname": "lib/Request.js~Request#acceptLanguage",
     "access": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 18,
     "type": {
       "nullable": null,
       "types": [
@@ -159,7 +159,7 @@
     "longname": "lib/Request.js~Request#dnt",
     "access": null,
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 21,
     "type": {
       "nullable": null,
       "types": [
@@ -178,18 +178,14 @@
     "longname": "lib/Request.js~Request#headers",
     "access": null,
     "description": null,
-    "lineNumber": 17,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "lineNumber": 24,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -201,7 +197,7 @@
     "longname": "lib/Request.js~Request#host",
     "access": null,
     "description": null,
-    "lineNumber": 20,
+    "lineNumber": 27,
     "type": {
       "nullable": null,
       "types": [
@@ -220,7 +216,7 @@
     "longname": "lib/Request.js~Request#method",
     "access": null,
     "description": null,
-    "lineNumber": 23,
+    "lineNumber": 30,
     "type": {
       "nullable": null,
       "types": [
@@ -239,7 +235,7 @@
     "longname": "lib/Request.js~Request#path",
     "access": null,
     "description": null,
-    "lineNumber": 26,
+    "lineNumber": 33,
     "type": {
       "nullable": null,
       "types": [
@@ -257,19 +253,18 @@
     "static": false,
     "longname": "lib/Request.js~Request#query",
     "access": null,
-    "description": null,
-    "lineNumber": 28,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
+    "description": "",
+    "see": [
+      "https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options"
     ],
+    "lineNumber": 39,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -281,7 +276,7 @@
     "longname": "lib/Request.js~Request#userAgent",
     "access": null,
     "description": null,
-    "lineNumber": 31,
+    "lineNumber": 42,
     "type": {
       "nullable": null,
       "types": [
@@ -295,7 +290,7 @@
     "__docId__": 14,
     "kind": "file",
     "name": "lib/Response.js",
-    "content": "module.exports = class Response {\n    constructor(response) {\n        /**\n         * @type {string}\n         */\n        this._body = '';\n\n        /**\n         * @type {http.ServerResponse}\n         * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n         */\n        this._response = response;\n    }\n\n    /**\n     * @type {string}\n     */\n    get body() {\n        return this._body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {*}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    /**\n     * @type {number}\n     */\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    /**\n     * @type {number}\n     */\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Calls and returns the result of `http.ServerResponse#write(this.body)`\n     * and resets `this.body` back to an empty string.\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback\n     */\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        return this._response.write(body);\n    }\n};\n",
+    "content": "module.exports = class Response {\n    /**\n     * Creates an instance of `Response`.\n     *\n     * @param {http.ServerResponse} response\n     * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n     */\n    constructor(response) {\n        /**\n         * @type {string}\n         */\n        this._body = '';\n\n        /**\n         * @type {http.ServerResponse}\n         * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n         */\n        this._response = response;\n    }\n\n    /**\n     * @type {string}\n     */\n    get body() {\n        return this._body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {*}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    /**\n     * @type {number}\n     */\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    /**\n     * @type {number}\n     */\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Calls and returns the result of `http.ServerResponse#write(this.body)`\n     * and resets `this.body` back to an empty string.\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback\n     */\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        return this._response.write(body);\n    }\n};\n",
     "static": true,
     "longname": "lib/Response.js",
     "access": null,
@@ -334,21 +329,21 @@
     "static": false,
     "longname": "lib/Response.js~Response#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
+    "description": "Creates an instance of `Response`.",
+    "see": [
+      "https://nodejs.org/api/http.html#http_class_http_serverresponse"
     ],
+    "lineNumber": 8,
     "params": [
       {
-        "name": "response",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "http.ServerResponse"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "response",
+        "description": ""
       }
     ]
   },
@@ -361,7 +356,7 @@
     "longname": "lib/Response.js~Response#_body",
     "access": null,
     "description": "",
-    "lineNumber": 6,
+    "lineNumber": 12,
     "type": {
       "nullable": null,
       "types": [
@@ -383,7 +378,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_class_http_serverresponse"
     ],
-    "lineNumber": 12,
+    "lineNumber": 18,
     "type": {
       "nullable": null,
       "types": [
@@ -404,7 +399,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": "",
-    "lineNumber": 18,
+    "lineNumber": 24,
     "type": {
       "nullable": null,
       "types": [
@@ -425,7 +420,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": "",
-    "lineNumber": 25,
+    "lineNumber": 31,
     "type": {
       "nullable": null,
       "types": [
@@ -444,7 +439,7 @@
     "longname": "lib/Response.js~Response#_body",
     "access": null,
     "description": null,
-    "lineNumber": 26,
+    "lineNumber": 32,
     "undocument": true,
     "unknown": [
       {
@@ -469,7 +464,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": "",
-    "lineNumber": 32,
+    "lineNumber": 38,
     "type": {
       "nullable": null,
       "types": [
@@ -490,7 +485,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": "",
-    "lineNumber": 39,
+    "lineNumber": 45,
     "type": {
       "nullable": null,
       "types": [
@@ -511,7 +506,7 @@
     "longname": "lib/Response.js~Response#json",
     "access": null,
     "description": "",
-    "lineNumber": 46,
+    "lineNumber": 52,
     "type": {
       "nullable": null,
       "types": [
@@ -532,7 +527,7 @@
     "longname": "lib/Response.js~Response#json",
     "access": null,
     "description": "",
-    "lineNumber": 53,
+    "lineNumber": 59,
     "type": {
       "nullable": null,
       "types": [
@@ -551,7 +546,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 54,
+    "lineNumber": 60,
     "undocument": true,
     "unknown": [
       {
@@ -574,7 +569,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 55,
+    "lineNumber": 61,
     "undocument": true,
     "unknown": [
       {
@@ -599,7 +594,7 @@
     "longname": "lib/Response.js~Response#html",
     "access": null,
     "description": "",
-    "lineNumber": 61,
+    "lineNumber": 67,
     "type": {
       "nullable": null,
       "types": [
@@ -620,7 +615,7 @@
     "longname": "lib/Response.js~Response#html",
     "access": null,
     "description": "",
-    "lineNumber": 68,
+    "lineNumber": 74,
     "type": {
       "nullable": null,
       "types": [
@@ -639,7 +634,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 69,
+    "lineNumber": 75,
     "undocument": true,
     "unknown": [
       {
@@ -662,7 +657,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 70,
+    "lineNumber": 76,
     "undocument": true,
     "unknown": [
       {
@@ -690,7 +685,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_response_end_data_encoding_callback"
     ],
-    "lineNumber": 79,
+    "lineNumber": 85,
     "params": [],
     "return": {
       "nullable": null,
@@ -712,7 +707,7 @@
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
     "description": "",
-    "lineNumber": 88,
+    "lineNumber": 94,
     "type": {
       "nullable": null,
       "types": [
@@ -733,7 +728,7 @@
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
     "description": "",
-    "lineNumber": 95,
+    "lineNumber": 101,
     "type": {
       "nullable": null,
       "types": [
@@ -754,7 +749,7 @@
     "longname": "lib/Response.js~Response#text",
     "access": null,
     "description": "",
-    "lineNumber": 102,
+    "lineNumber": 108,
     "type": {
       "nullable": null,
       "types": [
@@ -775,7 +770,7 @@
     "longname": "lib/Response.js~Response#text",
     "access": null,
     "description": "",
-    "lineNumber": 109,
+    "lineNumber": 115,
     "type": {
       "nullable": null,
       "types": [
@@ -794,7 +789,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 110,
+    "lineNumber": 116,
     "undocument": true,
     "unknown": [
       {
@@ -817,7 +812,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 111,
+    "lineNumber": 117,
     "undocument": true,
     "unknown": [
       {
@@ -845,7 +840,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback"
     ],
-    "lineNumber": 121,
+    "lineNumber": 127,
     "params": [],
     "return": {
       "nullable": null,
@@ -865,7 +860,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 123,
+    "lineNumber": 129,
     "undocument": true,
     "unknown": [
       {

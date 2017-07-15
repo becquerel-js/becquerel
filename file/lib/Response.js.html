@@ -44,6 +44,12 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/Response.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">module.exports = class Response {
+    /**
+     * Creates an instance of `Response`.
+     *
+     * @param {http.ServerResponse} response
+     * @see https://nodejs.org/api/http.html#http_class_http_serverresponse
+     */
     constructor(response) {
         /**
          * @type {string}

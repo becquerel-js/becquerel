@@ -47,6 +47,12 @@
 const url = require(&apos;url&apos;);
 
 module.exports = class Request {
+    /**
+     * Creates an instance of `Request`.
+     *
+     * @param {http.IncomingMessage} request
+     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage
+     */
     constructor(request) {
         const _url = url.parse(request.url);
 
@@ -59,6 +65,7 @@ module.exports = class Request {
         /** @type {string} */
         this.dnt = request.headers[&apos;dnt&apos;];
 
+        /** @type {Object} */
         this.headers = request.headers;
 
         /** @type {string} */
@@ -70,6 +77,10 @@ module.exports = class Request {
         /** @type {string} */
         this.path = _url.pathname;
 
+        /**
+         * @type {Object}
+         * @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options
+         */
         this.query = querystring.parse(_url.query);
 
         /** @type {string} */
