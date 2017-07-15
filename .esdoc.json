@@ -1,6 +1,6 @@
 {
     "source": "./lib",
-    "destination": "./doc",
+    "destination": "./esdoc",
     "manual": {
         "changelog": ["./CHANGELOG.md"]
     },

@@ -61,4 +61,4 @@ typings/
 server.js
 
 # ESDoc output
-doc
+esdoc
