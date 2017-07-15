@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">lib/Response.js | API Document</title>
+  <title data-ice="title">lib/RouteHandler.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -42,83 +42,10 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/Response.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">module.exports = class Response {
-    constructor(response) {
-        this._body = &apos;&apos;;
-        this._response = response;
-    }
-
-    get body() {
-        return this._body;
-    }
-
-    set body(data) {
-        this._body = data;
-    }
-
-    get contentType() {
-        return this._response.getHeader(&apos;Content-Type&apos;);
-    }
-
-    set contentType(type) {
-        this._response.setHeader(&apos;Content-Type&apos;, type);
-    }
-
-    get json() {
-        return JSON.parse(this.body);
-    }
-
-    set json(data) {
-        this.contentType = &apos;application/json; charset=utf-8&apos;;
-        this.body = JSON.stringify(data, &apos; &apos;, 4);
-    }
-
-    get html() {
-        return this.body;
-    }
-
-    set html(data) {
-        this.contentType = &apos;text/html; charset=utf-8&apos;;
-        this.body = data;
-    }
-
-    /**
-     * Writes the output data and calls `http.ServerResponse#end()`
-     *
-     * @return {boolean}
-     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback
-     */
-    send() {
-        this.write();
-
-        return this._response.end();
-    }
-
-    get statusCode() {
-        return this._response.statusCode;
-    }
-
-    set statusCode(code) {
-        this._response.statusCode = code;
-    }
-
-    get text() {
-        return this.body;
-    }
-
-    set text(data) {
-        this.contentType = &apos;text/plain; charset=utf-8&apos;;
-        this.body = data;
-    }
-
-    write() {
-        const body = this.body;
-        this.body = &apos;&apos;;
-
-        this._response.write(body);
-    }
-};
+<div class="content" data-ice="content"><h1 data-ice="title">lib/RouteHandler.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @typedef {function(request: Request, response: Response)} RouteHandler
+ */
 </code></pre>
 
 </div>

@@ -427,13 +427,13 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/response.js~response#body",
-    "class/lib/Response.js~Response.html#instance-set-body",
+    "class/lib/Response.js~Response.html#instance-get-body",
     "lib/Response.js~Response#body",
     "member"
   ],
   [
     "lib/response.js~response#body",
-    "class/lib/Response.js~Response.html#instance-get-body",
+    "class/lib/Response.js~Response.html#instance-set-body",
     "lib/Response.js~Response#body",
     "member"
   ],
@@ -445,25 +445,25 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/response.js~response#contenttype",
-    "class/lib/Response.js~Response.html#instance-get-contentType",
-    "lib/Response.js~Response#contentType",
-    "member"
-  ],
-  [
-    "lib/response.js~response#contenttype",
     "class/lib/Response.js~Response.html#instance-set-contentType",
     "lib/Response.js~Response#contentType",
     "member"
   ],
   [
-    "lib/response.js~response#html",
-    "class/lib/Response.js~Response.html#instance-get-html",
-    "lib/Response.js~Response#html",
+    "lib/response.js~response#contenttype",
+    "class/lib/Response.js~Response.html#instance-get-contentType",
+    "lib/Response.js~Response#contentType",
     "member"
   ],
   [
     "lib/response.js~response#html",
     "class/lib/Response.js~Response.html#instance-set-html",
+    "lib/Response.js~Response#html",
+    "member"
+  ],
+  [
+    "lib/response.js~response#html",
+    "class/lib/Response.js~Response.html#instance-get-html",
     "lib/Response.js~Response#html",
     "member"
   ],
@@ -487,20 +487,14 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/response.js~response#statuscode",
-    "class/lib/Response.js~Response.html#instance-set-statusCode",
-    "lib/Response.js~Response#statusCode",
-    "member"
-  ],
-  [
-    "lib/response.js~response#statuscode",
     "class/lib/Response.js~Response.html#instance-get-statusCode",
     "lib/Response.js~Response#statusCode",
     "member"
   ],
   [
-    "lib/response.js~response#text",
-    "class/lib/Response.js~Response.html#instance-get-text",
-    "lib/Response.js~Response#text",
+    "lib/response.js~response#statuscode",
+    "class/lib/Response.js~Response.html#instance-set-statusCode",
+    "lib/Response.js~Response#statusCode",
     "member"
   ],
   [
@@ -510,10 +504,40 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/response.js~response#text",
+    "class/lib/Response.js~Response.html#instance-get-text",
+    "lib/Response.js~Response#text",
+    "member"
+  ],
+  [
     "lib/response.js~response#write",
     "class/lib/Response.js~Response.html#instance-method-write",
     "lib/Response.js~Response#write",
     "method"
+  ],
+  [
+    "lib/route.js",
+    "file/lib/Route.js.html",
+    "lib/Route.js",
+    "file"
+  ],
+  [
+    "lib/route.js~route",
+    "typedef/index.html#static-typedef-Route",
+    "lib/Route.js~Route",
+    "typedef"
+  ],
+  [
+    "lib/routehandler.js",
+    "file/lib/RouteHandler.js.html",
+    "lib/RouteHandler.js",
+    "file"
+  ],
+  [
+    "lib/routehandler.js~routehandler",
+    "typedef/index.html#static-typedef-RouteHandler",
+    "lib/RouteHandler.js~RouteHandler",
+    "typedef"
   ],
   [
     "lib/env.js",
@@ -556,17 +580,5 @@ window.esdocSearchIndex = [
     "class/lib/index.js~Bq.html#instance-method-serve",
     "lib/index.js~Bq#serve",
     "method"
-  ],
-  [
-    "lib/index.js~bq.route",
-    "typedef/index.html#static-typedef-Route",
-    "lib/index.js~Bq.Route",
-    "typedef"
-  ],
-  [
-    "lib/index.js~bq.routehandler",
-    "typedef/index.html#static-typedef-RouteHandler",
-    "lib/index.js~Bq.RouteHandler",
-    "typedef"
   ]
 ]

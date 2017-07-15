@@ -1,7 +1,7 @@
 {
-  "coverage": "11.76%",
+  "coverage": "14.7%",
   "expectCount": 34,
-  "actualCount": 4,
+  "actualCount": 5,
   "files": {
     "lib/index.js": {
       "expectCount": 6,
@@ -31,7 +31,7 @@
     },
     "lib/Response.js": {
       "expectCount": 16,
-      "actualCount": 0,
+      "actualCount": 1,
       "undocumentLines": [
         1,
         11,
@@ -43,12 +43,11 @@
         36,
         27,
         23,
-        41,
-        51,
-        47,
-        59,
-        55,
-        64
+        57,
+        53,
+        65,
+        61,
+        70
       ]
     },
     "lib/env.js": {

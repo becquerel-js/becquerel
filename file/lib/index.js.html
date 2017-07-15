@@ -70,21 +70,13 @@ module.exports = class Bq {
     }
 
     /**
-     * @typedef {function(request: Request, response: Response)} RouteHandler
-     */
-
-    /**
-     * @typedef {Object&lt;string, RouteHandler&gt;} Route
-     */
-
-    /**
      * A helper method to work with the instance&apos;s internal `#routes` property.
      * Acts as a getter if the `route` parameter is not specified and a setter
      * if it is. This method always returns the specified route object.
      *
-     * @param {string} path - The path name to get/set the route (e.g. &apos;/resource&apos;).
+     * @param {string} path - The path name to get/set the route _(e.g. `&apos;/resource&apos;`)_.
      * @param {Route} [route] - An object consisting of callback functions mapped to method keys.
-     * @return {function(request: Request, response: Response)}
+     * @return {RouteHandler}
      */
     route(path, route) {
         if (route) {
@@ -97,28 +89,32 @@ module.exports = class Bq {
     /**
      * Start the app server.
      *
-     * @param {Object} [settings={port: env(&apos;BQ_RUN_DEFAULT_PORT&apos;)}] - The port setting defaults to `8080` if no envvar is set.
+     * @param {Object} [settings={port: 8080}] - The port setting defaults to the value of the `BQ_RUN_DEFAULT_PORT` envvar.
      * @return {http.Server} The server instance that has been started.
+     * @see https://nodejs.org/api/http.html#http_class_http_server
      */
     run(settings = {}) {
         const defaults = {port: env(&apos;BQ_RUN_DEFAULT_PORT&apos;)};
-        const _settings = Object.assign(defaults, settings);
-        const uri = `http://localhost:${_settings.port}`;
+        const {port} = Object.assign(defaults, settings);
+        const uri = `http://localhost:${port}`;
         const server = http.createServer(this.serve.bind(this));
 
         if (env(&apos;BQ_RUN_DISPLAY_MSG&apos;)) {
             console.log(`Now listening at &lt;${uri}&gt;.`);
         }
 
-        return server.listen(_settings.port);
+        return server.listen(port);
     }
 
     /**
      * The callback invoked by `#run()` when the server receives a client request.
      *
      * @param {http.IncomingMessage} request
-     * @param {http.IncomingMessage} response
-     * @return {boolean}
+     * @param {http.ServerResponse} response
+     * @return {boolean} The value returned by `http.ServerResponse#end()`.
+     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage
+     * @see https://nodejs.org/api/http.html#http_class_http_serverresponse
+     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback
      */
     serve(request, response) {
         let _request = new Request(request);

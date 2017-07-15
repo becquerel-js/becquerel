@@ -168,7 +168,7 @@
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-route">route</a></span></span><span data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, route: <span><a href="typedef/index.html#static-typedef-Route">Route</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(request: <span><a href="class/lib/Request.js~Request.html">Request</a></span>, response: <span><a href="class/lib/Response.js~Response.html">Response</a></span>)</span></span></span>
+          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-route">route</a></span></span><span data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, route: <span><a href="typedef/index.html#static-typedef-Route">Route</a></span>): <span><a href="typedef/index.html#static-typedef-RouteHandler">RouteHandler</a></span></span>
         </p>
       </div>
       <div>
@@ -226,7 +226,7 @@ if it is. This method always returns the specified route object.</p>
         <p>
           
           
-          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-serve">serve</a></span></span><span data-ice="signature">(request: <span>http.IncomingMessage</span>, response: <span>http.IncomingMessage</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span data-ice="name"><span><a href="class/lib/index.js~Bq.html#instance-method-serve">serve</a></span></span><span data-ice="signature">(request: <span>http.IncomingMessage</span>, response: <span>http.ServerResponse</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -351,11 +351,11 @@ if it is. This method always returns the specified route object.</p>
     
     
     
-    <span data-ice="name">route</span><span data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, route: <span><a href="typedef/index.html#static-typedef-Route">Route</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(request: <span><a href="class/lib/Request.js~Request.html">Request</a></span>, response: <span><a href="class/lib/Response.js~Response.html">Response</a></span>)</span></span></span>
+    <span data-ice="name">route</span><span data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, route: <span><a href="typedef/index.html#static-typedef-Route">Route</a></span>): <span><a href="typedef/index.html#static-typedef-RouteHandler">RouteHandler</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -381,7 +381,7 @@ if it is. This method always returns the specified route object.</p>
       <td data-ice="name" data-depth="0">path</td>
       <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The path name to get/set the route (e.g. &apos;/resource&apos;).</p>
+      <td data-ice="description"><p>The path name to get/set the route <em>(e.g. <code>&apos;/resource&apos;</code>)</em>.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -401,7 +401,7 @@ if it is. This method always returns the specified route object.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type" data-ice="returnType"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span><span>(request: <span><a href="class/lib/Request.js~Request.html">Request</a></span>, response: <span><a href="class/lib/Response.js~Response.html">Response</a></span>)</span></span></td>
+          <td class="return-type" data-ice="returnType"><span><a href="typedef/index.html#static-typedef-RouteHandler">RouteHandler</a></span></td>
           
         </tr>
       </tbody>
@@ -437,7 +437,7 @@ if it is. This method always returns the specified route object.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
@@ -461,8 +461,8 @@ if it is. This method always returns the specified route object.</p>
       <td data-ice="name" data-depth="0">settings</td>
       <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
-<li>default: {port: env(&apos;BQ_RUN_DEFAULT_PORT&apos;)}</li></ul></td>
-      <td data-ice="description"><p>The port setting defaults to <code>8080</code> if no envvar is set.</p>
+<li>default: {port: 8080}</li></ul></td>
+      <td data-ice="description"><p>The port setting defaults to the value of the <code>BQ_RUN_DEFAULT_PORT</code> envvar.</p>
 </td>
     </tr>
 </tbody>
@@ -497,7 +497,7 @@ if it is. This method always returns the specified route object.</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://nodejs.org/api/http.html#http_class_http_server">https://nodejs.org/api/http.html#http_class_http_server</a></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -508,11 +508,11 @@ if it is. This method always returns the specified route object.</p>
     
     
     
-    <span data-ice="name">serve</span><span data-ice="signature">(request: <span>http.IncomingMessage</span>, response: <span>http.IncomingMessage</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span data-ice="name">serve</span><span data-ice="signature">(request: <span>http.IncomingMessage</span>, response: <span>http.ServerResponse</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber78">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/index.js.html#lineNumber74">source</a></span></span>
     </span>
   </h3>
 
@@ -540,7 +540,7 @@ if it is. This method always returns the specified route object.</p>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">response</td>
-      <td data-ice="type"><span>http.IncomingMessage</span></td>
+      <td data-ice="type"><span>http.ServerResponse</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
@@ -555,7 +555,8 @@ if it is. This method always returns the specified route object.</p>
       <tbody>
         <tr>
           <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>The value returned by <code>http.ServerResponse#end()</code>.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -575,7 +576,9 @@ if it is. This method always returns the specified route object.</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://nodejs.org/api/http.html#http_class_http_incomingmessage">https://nodejs.org/api/http.html#http_class_http_incomingmessage</a></span></li>
+<li><span><a href="https://nodejs.org/api/http.html#http_class_http_serverresponse">https://nodejs.org/api/http.html#http_class_http_serverresponse</a></span></li>
+<li><span><a href="https://nodejs.org/api/http.html#http_response_end_data_encoding_callback">https://nodejs.org/api/http.html#http_response_end_data_encoding_callback</a></span></li></ul></div>
   
 </div>
 </div>
