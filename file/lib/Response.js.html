@@ -65,8 +65,7 @@
     }
 
     /**
-     * @param {string}
-     * @return {string}
+     * @type {string}
      */
     set contentType(type) {
         this._response.setHeader(&apos;Content-Type&apos;, type);
@@ -95,8 +94,7 @@
     }
 
     /**
-     * @param {string}
-     * @return {string}
+     * @type {string}
      */
     set html(data) {
         this.contentType = &apos;text/html; charset=utf-8&apos;;
@@ -131,8 +129,7 @@
     }
 
     /**
-     * @param {string}
-     * @return {string}
+     * @type {string}
      */
     set text(data) {
         this.contentType = &apos;text/plain; charset=utf-8&apos;;
