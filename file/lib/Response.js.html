@@ -57,27 +57,47 @@
         this._body = data;
     }
 
+    /**
+     * @type {string}
+     */
     get contentType() {
         return this._response.getHeader(&apos;Content-Type&apos;);
     }
 
+    /**
+     * @param {string}
+     * @return {string}
+     */
     set contentType(type) {
         this._response.setHeader(&apos;Content-Type&apos;, type);
     }
 
+    /**
+     * @type {string}
+     */
     get json() {
         return JSON.parse(this.body);
     }
 
+    /**
+     * @type {*}
+     */
     set json(data) {
         this.contentType = &apos;application/json; charset=utf-8&apos;;
         this.body = JSON.stringify(data, &apos; &apos;, 4);
     }
 
+    /**
+     * @type {string}
+     */
     get html() {
         return this.body;
     }
 
+    /**
+     * @param {string}
+     * @return {string}
+     */
     set html(data) {
         this.contentType = &apos;text/html; charset=utf-8&apos;;
         this.body = data;
@@ -103,10 +123,17 @@
         this._response.statusCode = code;
     }
 
+    /**
+     * @type {string}
+     */
     get text() {
         return this.body;
     }
 
+    /**
+     * @param {string}
+     * @return {string}
+     */
     set text(data) {
         this.contentType = &apos;text/plain; charset=utf-8&apos;;
         this.body = data;

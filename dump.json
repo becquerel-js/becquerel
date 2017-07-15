@@ -295,7 +295,7 @@
     "__docId__": 14,
     "kind": "file",
     "name": "lib/Response.js",
-    "content": "module.exports = class Response {\n    constructor(response) {\n        this._body = '';\n        this._response = response;\n    }\n\n    get body() {\n        return this._body;\n    }\n\n    set body(data) {\n        this._body = data;\n    }\n\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    get html() {\n        return this.body;\n    }\n\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    get text() {\n        return this.body;\n    }\n\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        this._response.write(body);\n    }\n};\n",
+    "content": "module.exports = class Response {\n    constructor(response) {\n        this._body = '';\n        this._response = response;\n    }\n\n    get body() {\n        return this._body;\n    }\n\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @param {string}\n     * @return {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {string}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @param {string}\n     * @return {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @param {string}\n     * @return {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        this._response.write(body);\n    }\n};\n",
     "static": true,
     "longname": "lib/Response.js",
     "access": null,
@@ -481,19 +481,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
-    "description": null,
-    "lineNumber": 15,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 18,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -506,15 +502,17 @@
     "static": false,
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
-    "description": null,
-    "lineNumber": 19,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 26,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
     "type": {
       "types": [
         "*"
@@ -531,19 +529,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#json",
     "access": null,
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 33,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -556,19 +550,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#json",
     "access": null,
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 40,
     "type": {
+      "nullable": null,
       "types": [
         "*"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -580,7 +570,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 28,
+    "lineNumber": 41,
     "undocument": true,
     "unknown": [
       {
@@ -603,7 +593,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 29,
+    "lineNumber": 42,
     "undocument": true,
     "unknown": [
       {
@@ -627,19 +617,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#html",
     "access": null,
-    "description": null,
-    "lineNumber": 32,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 48,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -652,15 +638,17 @@
     "static": false,
     "longname": "lib/Response.js~Response#html",
     "access": null,
-    "description": null,
-    "lineNumber": 36,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 56,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
     "type": {
       "types": [
         "*"
@@ -676,7 +664,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 37,
+    "lineNumber": 57,
     "undocument": true,
     "unknown": [
       {
@@ -699,7 +687,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 38,
+    "lineNumber": 58,
     "undocument": true,
     "unknown": [
       {
@@ -727,7 +715,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_response_end_data_encoding_callback"
     ],
-    "lineNumber": 47,
+    "lineNumber": 67,
     "params": [],
     "return": {
       "nullable": null,
@@ -749,7 +737,7 @@
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
     "description": null,
-    "lineNumber": 53,
+    "lineNumber": 73,
     "undocument": true,
     "unknown": [
       {
@@ -774,7 +762,7 @@
     "longname": "lib/Response.js~Response#statusCode",
     "access": null,
     "description": null,
-    "lineNumber": 57,
+    "lineNumber": 77,
     "undocument": true,
     "unknown": [
       {
@@ -798,19 +786,15 @@
     "static": false,
     "longname": "lib/Response.js~Response#text",
     "access": null,
-    "description": null,
-    "lineNumber": 61,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 84,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -823,15 +807,17 @@
     "static": false,
     "longname": "lib/Response.js~Response#text",
     "access": null,
-    "description": null,
-    "lineNumber": 65,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
+    "description": "",
+    "lineNumber": 92,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
     "type": {
       "types": [
         "*"
@@ -847,7 +833,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 66,
+    "lineNumber": 93,
     "undocument": true,
     "unknown": [
       {
@@ -870,7 +856,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 94,
     "undocument": true,
     "unknown": [
       {
@@ -895,7 +881,7 @@
     "longname": "lib/Response.js~Response#write",
     "access": null,
     "description": null,
-    "lineNumber": 70,
+    "lineNumber": 97,
     "undocument": true,
     "unknown": [
       {
@@ -914,7 +900,7 @@
     "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": null,
-    "lineNumber": 72,
+    "lineNumber": 99,
     "undocument": true,
     "unknown": [
       {
