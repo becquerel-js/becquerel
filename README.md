@@ -16,6 +16,8 @@ $ npm install --save @becquerel/framework  # Or alternately: `yarn add @becquere
 Usage
 -----
 ```js
+'use strict';
+
 const Bq = require('@becquerel/framework');
 const app = new Bq();
 
