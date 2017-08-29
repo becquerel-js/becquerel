@@ -36,6 +36,9 @@ app.run();
 
 Environment Variables
 ---------------------
+### `BQ_DEFAULT_CHARSET` (default: `utf-8`)
+The default charset used for framework responses.
+
 ### `BQ_RUN_DEFAULT_PORT` (default: `8080`)
 The port that the app will bind to if `settings.port` is not passed to `#run()`.
 
