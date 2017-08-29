@@ -5,7 +5,7 @@
 [![GitHub License][LICENSE BADGE]][LICENSE PAGE]
 [![Build Status][BUILD BADGE]][BUILD PAGE]
 
-Yet another web framework experiment.
+> Yet another web framework experiment.
 
 Install
 -------
@@ -36,13 +36,13 @@ app.run();
 
 Environment Variables
 ---------------------
-### `BQ_DEFAULT_CHARSET` (default: `utf-8`)
+### `BQ_DEFAULT_CHARSET` _(default: `utf-8`)_
 The default charset used for framework responses.
 
-### `BQ_RUN_DEFAULT_PORT` (default: `8080`)
+### `BQ_RUN_DEFAULT_PORT` _(default: `8080`)_
 The port that the app will bind to if `settings.port` is not passed to `#run()`.
 
-### `BQ_RUN_DISPLAY_MSG` (default: `true`)
+### `BQ_RUN_DISPLAY_MSG` _(default: `true`)_
 If `true` the app will display the `Now listening at <${uri}>.` message upon launch.
 
 License
