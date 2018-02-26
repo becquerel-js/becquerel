@@ -47,6 +47,12 @@ The port that the app will bind to if `settings.port` is not passed to `#run()`.
 ### `BQ_RUN_DISPLAY_MSG` _(default: `true`)_
 If `true` the app will display the `Now listening at <${uri}>.` message upon launch.
 
+Testing
+-------
+```sh
+$ yarn test # Or alternatively: `npm test`
+```
+
 License
 -------
 The MIT License (Expat). See the [license file](LICENSE) for details.
