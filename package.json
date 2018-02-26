@@ -9,7 +9,7 @@
   "scripts": {
     "esdoc": "esdoc",
     "gh-pages": "gh-pages --dist 'esdoc' --message 'Updating docs.'",
-    "test": "jasmine"
+    "test": "nyc jasmine"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "esdoc": "^0.5.2",
     "esdoc-node": "^1.0.2",
     "gh-pages": "^1.0.0",
-    "jasmine": "^2.8.0"
+    "jasmine": "^2.8.0",
+    "nyc": "^11.4.1"
   }
 }

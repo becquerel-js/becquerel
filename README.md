@@ -10,7 +10,7 @@
 Install
 -------
 ```sh
-$ npm install --save @becquerel/framework  # Or alternately: `yarn add @becquerel/framework`
+$ yarn add @becquerel/framework  # Or alternately: `npm install @becquerel/framework`
 ```
 
 Usage
