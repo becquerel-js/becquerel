@@ -1,5 +1,6 @@
 const Bq = require('../');
 const http = require('http');
+const httpMocks = require('node-mocks-http');
 const any = jasmine.any;
 
 describe('Bq', function () {
@@ -44,6 +45,13 @@ describe('Bq', function () {
     describe('#serve', function () {
         it('is a function', function () {
             expect(new Bq().serve).toEqual(any(Function));
+        });
+
+        it('returns `undefined`', function () {
+            const request = httpMocks.createRequest({method: 'GET', url: '/'});
+            const response = httpMocks.createResponse();
+
+            expect(new Bq().serve(request, response)).toEqual(undefined);
         });
     });
 });
