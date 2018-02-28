@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `BQ_DEFAULT_CHARSET`, `BQ_RUN_DEFAULT_PORT`, and `BQ_RUN_DISPLAY_MSG` config environment variables.
 - Added more ESDoc comments.
 - Added async callback support to `Bq.prototype.serve`.
+- Implemented initial basic support of IETF URI templates.
 
 ### Changed
 - The required Node version is now `>=7.10`.
