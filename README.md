@@ -33,6 +33,12 @@ app.route('/hello', {
     }
 });
 
+app.route('/hello/{var}', {
+    get: (request, response) => {
+        response.json = {valueOfVar: request.uriVariables.var};
+    }
+});
+
 app.run();
 ```
 
