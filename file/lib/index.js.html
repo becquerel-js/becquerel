@@ -47,6 +47,7 @@
 const http = require(&apos;http&apos;);
 const Request = require(&apos;./Request&apos;);
 const Response = require(&apos;./Response&apos;);
+const UriTemplate = require(&apos;./UriTemplate&apos;);
 const url = require(&apos;url&apos;);
 
 const noop = () =&gt; {};
@@ -56,6 +57,7 @@ module.exports = class Bq {
         this.routes = {};
 
         const defaults = {
+            BQ_DEFAULT_CHARSET: &apos;utf-8&apos;,
             BQ_RUN_DEFAULT_PORT: 8080,
             BQ_RUN_DISPLAY_MSG: true
         };
@@ -83,7 +85,13 @@ module.exports = class Bq {
             this.routes[path] = route;
         }
 
-        return this.routes[path] || noop;
+        return Object.keys(this.routes).reduce((accumulator, routeId) =&gt; {
+            if (!new UriTemplate(routeId).test(path)) {
+                return accumulator;
+            }
+
+            return this.routes[routeId];
+        }, noop);
     }
 
     /**
@@ -96,7 +104,7 @@ module.exports = class Bq {
     run(settings = {}) {
         const defaults = {port: env(&apos;BQ_RUN_DEFAULT_PORT&apos;)};
         const {port} = Object.assign(defaults, settings);
-        const uri = `http://localhost:${port}`;
+        const uri = `http://localhost:${port}/`;
         const server = http.createServer(this.serve.bind(this));
 
         if (env(&apos;BQ_RUN_DISPLAY_MSG&apos;)) {
@@ -109,26 +117,49 @@ module.exports = class Bq {
     /**
      * The callback invoked by `#run()` when the server receives a client request.
      *
-     * @param {http.IncomingMessage} request
-     * @param {http.ServerResponse} response
-     * @return {boolean} The value returned by `http.ServerResponse#end()`.
+     * @param {http.IncomingMessage} incomingMessage
+     * @param {http.ServerResponse} serverResponse
+     * @return {undefined}
      * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage
      * @see https://nodejs.org/api/http.html#http_class_http_serverresponse
      * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback
      */
-    serve(request, response) {
-        let _request = new Request(request);
-        let _response = new Response(response);
-        let route = this.route(_request.path);
-        let method = _request.method;
+    serve(incomingMessage, serverResponse) {
+        let request = new Request(incomingMessage);
+        let response = new Response(serverResponse);
+        let uriTemplate = Object.keys(this.routes).reduce((accumulator, routeId) =&gt; {
+            let uriTemplate = new UriTemplate(routeId);
 
-        if (route &amp;&amp; route[method]) {
-            route[method](_request, _response);
-        } else {
-            Object.assign(_response, {statusCode: 404, text: &apos;Resource not found.&apos;});
+            if (!uriTemplate.test(request.path)) {
+                return accumulator;
+            }
+
+            return uriTemplate;
+        }, new UriTemplate());
+        let route = this.route(request.path);
+        let method = request.method;
+        request.uriVariables = uriTemplate.getVariables(request.path);
+
+        if (!route || !route[method]) {
+            Object.assign(response, {statusCode: 404, text: &apos;Resource not found.&apos;});
+            response.send();
+
+            return;
         }
 
-        return _response.send();
+        const callback = route[method];
+
+        /** @see https://stackoverflow.com/questions/38508420/how-to-know-if-a-function-is-async#answer-38510353 */
+        if (callback[Symbol.toStringTag] === &apos;AsyncFunction&apos;) {
+            callback(request, response).catch(error =&gt; {
+                Object.assign(response, {statusCode: 500, text: JSON.stringify(error)});
+            }).then(() =&gt; {
+                response.send();
+            });
+        } else {
+            callback(request, response);
+            response.send();
+        }
     }
 };
 </code></pre>

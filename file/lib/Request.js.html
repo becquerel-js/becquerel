@@ -50,41 +50,55 @@ module.exports = class Request {
     /**
      * Creates an instance of `Request`.
      *
-     * @param {http.IncomingMessage} request
+     * @param {http.IncomingMessage} incomingMessage
      * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage
      */
-    constructor(request) {
-        const _url = url.parse(request.url);
+    constructor(incomingMessage) {
+        this[Symbol.for(&apos;url&apos;)] = url.parse(incomingMessage.url);
 
         /** @type {string} */
-        this.accept = request.headers.accept;
+        this.accept = incomingMessage.headers.accept;
 
         /** @type {string} */
-        this.acceptLanguage = request.headers[&apos;accept-language&apos;];
+        this.acceptLanguage = incomingMessage.headers[&apos;accept-language&apos;];
 
         /** @type {string} */
-        this.dnt = request.headers[&apos;dnt&apos;];
+        this.dnt = incomingMessage.headers[&apos;dnt&apos;];
 
         /** @type {Object} */
-        this.headers = request.headers;
+        this.headers = incomingMessage.headers;
 
         /** @type {string} */
-        this.host = request.headers[&apos;host&apos;];
+        this.host = incomingMessage.headers[&apos;host&apos;];
 
         /** @type {string} */
-        this.method = request.method.toLowerCase();
+        this.method = incomingMessage.method.toLowerCase();
 
         /** @type {string} */
-        this.path = _url.pathname;
+        this.path = this[Symbol.for(&apos;url&apos;)].pathname;
 
         /**
          * @type {Object&lt;string, string|Array&lt;string&gt;&gt;}
          * @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options
          */
-        this.query = querystring.parse(_url.query);
+        this.query = querystring.parse(this[Symbol.for(&apos;url&apos;)].query);
 
         /** @type {string} */
-        this.userAgent = request.headers[&apos;user-agent&apos;];
+        this.userAgent = incomingMessage.headers[&apos;user-agent&apos;];
+    }
+
+    /**
+     * @type {Object}
+     */
+    get uriVariables() {
+        return this[Symbol.for(&apos;uriVariables&apos;)] || {};
+    }
+
+    /**
+     * @type {Object}
+     */
+    set uriVariables(uriVariables) {
+        this[Symbol.for(&apos;uriVariables&apos;)] = uriVariables;
     }
 };
 </code></pre>

@@ -360,6 +360,18 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/request.js~request#[symbol.for('urivariables')]",
+    "class/lib/Request.js~Request.html#instance-member-[Symbol.for('uriVariables')]",
+    "lib/Request.js~Request#[Symbol.for('uriVariables')]",
+    "member"
+  ],
+  [
+    "lib/request.js~request#[symbol.for('url')]",
+    "class/lib/Request.js~Request.html#instance-member-[Symbol.for('url')]",
+    "lib/Request.js~Request#[Symbol.for('url')]",
+    "member"
+  ],
+  [
     "lib/request.js~request#accept",
     "class/lib/Request.js~Request.html#instance-member-accept",
     "lib/Request.js~Request#accept",
@@ -414,6 +426,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/request.js~request#urivariables",
+    "class/lib/Request.js~Request.html#instance-get-uriVariables",
+    "lib/Request.js~Request#uriVariables",
+    "member"
+  ],
+  [
+    "lib/request.js~request#urivariables",
+    "class/lib/Request.js~Request.html#instance-set-uriVariables",
+    "lib/Request.js~Request#uriVariables",
+    "member"
+  ],
+  [
     "lib/request.js~request#useragent",
     "class/lib/Request.js~Request.html#instance-member-userAgent",
     "lib/Request.js~Request#userAgent",
@@ -426,14 +450,26 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/response.js~response#body",
-    "class/lib/Response.js~Response.html#instance-get-body",
-    "lib/Response.js~Response#body",
+    "lib/response.js~response#[symbol.for('body')]",
+    "class/lib/Response.js~Response.html#instance-member-[Symbol.for('body')]",
+    "lib/Response.js~Response#[Symbol.for('body')]",
+    "member"
+  ],
+  [
+    "lib/response.js~response#[symbol.for('response')]",
+    "class/lib/Response.js~Response.html#instance-member-[Symbol.for('response')]",
+    "lib/Response.js~Response#[Symbol.for('response')]",
     "member"
   ],
   [
     "lib/response.js~response#body",
     "class/lib/Response.js~Response.html#instance-set-body",
+    "lib/Response.js~Response#body",
+    "member"
+  ],
+  [
+    "lib/response.js~response#body",
+    "class/lib/Response.js~Response.html#instance-get-body",
     "lib/Response.js~Response#body",
     "member"
   ],
@@ -469,13 +505,13 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/response.js~response#json",
-    "class/lib/Response.js~Response.html#instance-set-json",
+    "class/lib/Response.js~Response.html#instance-get-json",
     "lib/Response.js~Response#json",
     "member"
   ],
   [
     "lib/response.js~response#json",
-    "class/lib/Response.js~Response.html#instance-get-json",
+    "class/lib/Response.js~Response.html#instance-set-json",
     "lib/Response.js~Response#json",
     "member"
   ],
@@ -499,13 +535,13 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/response.js~response#text",
-    "class/lib/Response.js~Response.html#instance-set-text",
+    "class/lib/Response.js~Response.html#instance-get-text",
     "lib/Response.js~Response#text",
     "member"
   ],
   [
     "lib/response.js~response#text",
-    "class/lib/Response.js~Response.html#instance-get-text",
+    "class/lib/Response.js~Response.html#instance-set-text",
     "lib/Response.js~Response#text",
     "member"
   ],

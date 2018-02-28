@@ -47,12 +47,16 @@
 <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-%3E%3D7.10-%23010101.svg?style=flat-square" alt="Node.js"></a>
 <a href="https://github.com/becquerel-js/framework/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT%20License-blue.svg?style=flat-square" alt="GitHub License"></a>
 <a href="https://travis-ci.org/becquerel-js/framework"><img src="https://img.shields.io/travis/becquerel-js/framework.svg?style=flat-square" alt="Build Status"></a></p>
+<blockquote>
 <p>Yet another web framework experiment.</p>
+</blockquote>
 <h2 id="install">Install</h2>
-<pre><code class="lang-sh"><code class="source-code prettyprint">$ npm install --save @becquerel/framework  # Or alternately: `yarn add @becquerel/framework`</code>
+<pre><code class="lang-sh"><code class="source-code prettyprint">$ yarn add @becquerel/framework  # Or alternately: `npm install @becquerel/framework`</code>
 </code></pre>
 <h2 id="usage">Usage</h2>
-<pre><code class="lang-js"><code class="source-code prettyprint">const Bq = require(&apos;@becquerel/framework&apos;);
+<pre><code class="lang-js"><code class="source-code prettyprint">&apos;use strict&apos;;
+
+const Bq = require(&apos;@becquerel/framework&apos;);
 const app = new Bq();
 
 app.route(&apos;/&apos;, {
@@ -67,13 +71,24 @@ app.route(&apos;/hello&apos;, {
     }
 });
 
+app.route(&apos;/hello/{var}&apos;, {
+    get: (request, response) =&gt; {
+        response.json = {valueOfVar: request.uriVariables.var};
+    }
+});
+
 app.run();</code>
 </code></pre>
 <h2 id="environment-variables">Environment Variables</h2>
-<h3 id="-bq_run_default_port-default-8080-"><code>BQ_RUN_DEFAULT_PORT</code> (default: <code>8080</code>)</h3>
+<h3 id="-bq_default_charset-_-default-utf-8-_"><code>BQ_DEFAULT_CHARSET</code> <em>(default: <code>utf-8</code>)</em></h3>
+<p>The default charset used for framework responses.</p>
+<h3 id="-bq_run_default_port-_-default-8080-_"><code>BQ_RUN_DEFAULT_PORT</code> <em>(default: <code>8080</code>)</em></h3>
 <p>The port that the app will bind to if <code>settings.port</code> is not passed to <code>#run()</code>.</p>
-<h3 id="-bq_run_display_msg-default-true-"><code>BQ_RUN_DISPLAY_MSG</code> (default: <code>true</code>)</h3>
+<h3 id="-bq_run_display_msg-_-default-true-_"><code>BQ_RUN_DISPLAY_MSG</code> <em>(default: <code>true</code>)</em></h3>
 <p>If <code>true</code> the app will display the <code>Now listening at &lt;${uri}&gt;.</code> message upon launch.</p>
+<h2 id="testing">Testing</h2>
+<pre><code class="lang-sh"><code class="source-code prettyprint">$ yarn test # Or alternatively: `npm test`</code>
+</code></pre>
 <h2 id="license">License</h2>
 <p>The MIT License (Expat). See the <a href="LICENSE">license file</a> for details.</p>
 </div>

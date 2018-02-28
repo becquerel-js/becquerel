@@ -1,15 +1,16 @@
 {
   "name": "@becquerel/framework",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Yet another web framework experiment.",
   "engines": {
-    "node": ">=7.10"
+    "node": ">=8.6"
   },
   "main": "./lib/index.js",
   "scripts": {
     "esdoc": "esdoc",
     "gh-pages": "gh-pages --dist 'esdoc' --message 'Updating docs.'",
-    "test": "jasmine"
+    "prepublishOnly": "trevor",
+    "test": "nyc jasmine"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,9 @@
     "esdoc": "^0.5.2",
     "esdoc-node": "^1.0.2",
     "gh-pages": "^1.0.0",
-    "jasmine": "^2.6.0"
+    "jasmine": "^2.8.0",
+    "node-mocks-http": "^1.6.7",
+    "nyc": "^11.4.1",
+    "trevor": "^2.3.0"
   }
 }

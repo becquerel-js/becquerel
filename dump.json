@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "lib/Request.js",
-    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    /**\n     * Creates an instance of `Request`.\n     *\n     * @param {http.IncomingMessage} request\n     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage\n     */\n    constructor(request) {\n        const _url = url.parse(request.url);\n\n        /** @type {string} */\n        this.accept = request.headers.accept;\n\n        /** @type {string} */\n        this.acceptLanguage = request.headers['accept-language'];\n\n        /** @type {string} */\n        this.dnt = request.headers['dnt'];\n\n        /** @type {Object} */\n        this.headers = request.headers;\n\n        /** @type {string} */\n        this.host = request.headers['host'];\n\n        /** @type {string} */\n        this.method = request.method.toLowerCase();\n\n        /** @type {string} */\n        this.path = _url.pathname;\n\n        /**\n         * @type {Object<string, string|Array<string>>}\n         * @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options\n         */\n        this.query = querystring.parse(_url.query);\n\n        /** @type {string} */\n        this.userAgent = request.headers['user-agent'];\n    }\n};\n",
+    "content": "const querystring = require('querystring');\nconst url = require('url');\n\nmodule.exports = class Request {\n    /**\n     * Creates an instance of `Request`.\n     *\n     * @param {http.IncomingMessage} incomingMessage\n     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage\n     */\n    constructor(incomingMessage) {\n        this[Symbol.for('url')] = url.parse(incomingMessage.url);\n\n        /** @type {string} */\n        this.accept = incomingMessage.headers.accept;\n\n        /** @type {string} */\n        this.acceptLanguage = incomingMessage.headers['accept-language'];\n\n        /** @type {string} */\n        this.dnt = incomingMessage.headers['dnt'];\n\n        /** @type {Object} */\n        this.headers = incomingMessage.headers;\n\n        /** @type {string} */\n        this.host = incomingMessage.headers['host'];\n\n        /** @type {string} */\n        this.method = incomingMessage.method.toLowerCase();\n\n        /** @type {string} */\n        this.path = this[Symbol.for('url')].pathname;\n\n        /**\n         * @type {Object<string, string|Array<string>>}\n         * @see https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options\n         */\n        this.query = querystring.parse(this[Symbol.for('url')].query);\n\n        /** @type {string} */\n        this.userAgent = incomingMessage.headers['user-agent'];\n    }\n\n    /**\n     * @type {Object}\n     */\n    get uriVariables() {\n        return this[Symbol.for('uriVariables')] || {};\n    }\n\n    /**\n     * @type {Object}\n     */\n    set uriVariables(uriVariables) {\n        this[Symbol.for('uriVariables')] = uriVariables;\n    }\n};\n",
     "static": true,
     "longname": "lib/Request.js",
     "access": null,
@@ -12,58 +12,6 @@
   },
   {
     "__docId__": 1,
-    "kind": "variable",
-    "name": "querystring",
-    "memberof": "lib/Request.js",
-    "static": true,
-    "longname": "lib/Request.js~querystring",
-    "access": null,
-    "export": false,
-    "importPath": "@becquerel/framework/lib/Request.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 1,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 2,
-    "kind": "variable",
-    "name": "url",
-    "memberof": "lib/Request.js",
-    "static": true,
-    "longname": "lib/Request.js~url",
-    "access": null,
-    "export": false,
-    "importPath": "@becquerel/framework/lib/Request.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 3,
     "kind": "class",
     "name": "Request",
     "memberof": "lib/Request.js",
@@ -85,7 +33,7 @@
     "interface": false
   },
   {
-    "__docId__": 4,
+    "__docId__": 2,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/Request.js~Request",
@@ -107,13 +55,36 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "request",
+        "name": "incomingMessage",
         "description": ""
       }
     ]
   },
   {
-    "__docId__": 5,
+    "__docId__": 3,
+    "kind": "member",
+    "name": "[Symbol.for('url')]",
+    "memberof": "lib/Request.js~Request",
+    "static": false,
+    "longname": "lib/Request.js~Request#[Symbol.for('url')]",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
     "kind": "member",
     "name": "accept",
     "memberof": "lib/Request.js~Request",
@@ -132,7 +103,7 @@
     }
   },
   {
-    "__docId__": 6,
+    "__docId__": 5,
     "kind": "member",
     "name": "acceptLanguage",
     "memberof": "lib/Request.js~Request",
@@ -151,7 +122,7 @@
     }
   },
   {
-    "__docId__": 7,
+    "__docId__": 6,
     "kind": "member",
     "name": "dnt",
     "memberof": "lib/Request.js~Request",
@@ -170,7 +141,7 @@
     }
   },
   {
-    "__docId__": 8,
+    "__docId__": 7,
     "kind": "member",
     "name": "headers",
     "memberof": "lib/Request.js~Request",
@@ -189,7 +160,7 @@
     }
   },
   {
-    "__docId__": 9,
+    "__docId__": 8,
     "kind": "member",
     "name": "host",
     "memberof": "lib/Request.js~Request",
@@ -208,7 +179,7 @@
     }
   },
   {
-    "__docId__": 10,
+    "__docId__": 9,
     "kind": "member",
     "name": "method",
     "memberof": "lib/Request.js~Request",
@@ -227,7 +198,7 @@
     }
   },
   {
-    "__docId__": 11,
+    "__docId__": 10,
     "kind": "member",
     "name": "path",
     "memberof": "lib/Request.js~Request",
@@ -246,7 +217,7 @@
     }
   },
   {
-    "__docId__": 12,
+    "__docId__": 11,
     "kind": "member",
     "name": "query",
     "memberof": "lib/Request.js~Request",
@@ -268,7 +239,7 @@
     }
   },
   {
-    "__docId__": 13,
+    "__docId__": 12,
     "kind": "member",
     "name": "userAgent",
     "memberof": "lib/Request.js~Request",
@@ -287,10 +258,75 @@
     }
   },
   {
+    "__docId__": 13,
+    "kind": "get",
+    "name": "uriVariables",
+    "memberof": "lib/Request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/Request.js~Request#uriVariables",
+    "access": null,
+    "description": "",
+    "lineNumber": 48,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
     "__docId__": 14,
+    "kind": "set",
+    "name": "uriVariables",
+    "memberof": "lib/Request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/Request.js~Request#uriVariables",
+    "access": null,
+    "description": "",
+    "lineNumber": 55,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 15,
+    "kind": "member",
+    "name": "[Symbol.for('uriVariables')]",
+    "memberof": "lib/Request.js~Request",
+    "static": false,
+    "longname": "lib/Request.js~Request#[Symbol.for('uriVariables')]",
+    "access": null,
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 16,
     "kind": "file",
     "name": "lib/Response.js",
-    "content": "module.exports = class Response {\n    /**\n     * Creates an instance of `Response`.\n     *\n     * @param {http.ServerResponse} response\n     * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n     */\n    constructor(response) {\n        /**\n         * @type {string}\n         */\n        this._body = '';\n\n        /**\n         * @type {http.ServerResponse}\n         * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n         */\n        this._response = response;\n    }\n\n    /**\n     * @type {string}\n     */\n    get body() {\n        return this._body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set body(data) {\n        this._body = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this._response.getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this._response.setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {*}\n     */\n    get json() {\n        return JSON.parse(this.body);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = 'application/json; charset=utf-8';\n        this.body = JSON.stringify(data, ' ', 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = 'text/html; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this._response.end();\n    }\n\n    /**\n     * @type {number}\n     */\n    get statusCode() {\n        return this._response.statusCode;\n    }\n\n    /**\n     * @type {number}\n     */\n    set statusCode(code) {\n        this._response.statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this.body;\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = 'text/plain; charset=utf-8';\n        this.body = data;\n    }\n\n    /**\n     * Calls and returns the result of `http.ServerResponse#write(this.body)`\n     * and resets `this.body` back to an empty string.\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback\n     */\n    write() {\n        const body = this.body;\n        this.body = '';\n\n        return this._response.write(body);\n    }\n};\n",
+    "content": "const env = require('./env');\n\nmodule.exports = class Response {\n    /**\n     * Creates an instance of `Response`.\n     *\n     * @param {http.ServerResponse} serverResponse\n     * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n     */\n    constructor(serverResponse) {\n        this[Symbol.for('body')] = '';\n        this[Symbol.for('response')] = serverResponse;\n    }\n\n    /**\n     * @type {string}\n     */\n    get body() {\n        return this[Symbol.for('body')];\n    }\n\n    /**\n     * @type {string}\n     */\n    set body(data) {\n        this[Symbol.for('body')] = data;\n    }\n\n    /**\n     * @type {string}\n     */\n    get contentType() {\n        return this[Symbol.for('response')].getHeader('Content-Type');\n    }\n\n    /**\n     * @type {string}\n     */\n    set contentType(type) {\n        this[Symbol.for('response')].setHeader('Content-Type', type);\n    }\n\n    /**\n     * @type {*}\n     */\n    get json() {\n        return JSON.parse(this[Symbol.for('body')]);\n    }\n\n    /**\n     * @type {*}\n     */\n    set json(data) {\n        this.contentType = `application/json; charset=${env('BQ_DEFAULT_CHARSET')}`;\n        this[Symbol.for('body')] = JSON.stringify(data, null, 4);\n    }\n\n    /**\n     * @type {string}\n     */\n    get html() {\n        return this[Symbol.for('body')];\n    }\n\n    /**\n     * @type {string}\n     */\n    set html(data) {\n        this.contentType = `text/html; charset=${env('BQ_DEFAULT_CHARSET')}`;\n        this[Symbol.for('body')] = data;\n    }\n\n    /**\n     * Writes the output data and calls `http.ServerResponse#end()`\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    send() {\n        this.write();\n\n        return this[Symbol.for('response')].end();\n    }\n\n    /**\n     * @type {number}\n     */\n    get statusCode() {\n        return this[Symbol.for('response')].statusCode;\n    }\n\n    /**\n     * @type {number}\n     */\n    set statusCode(code) {\n        this[Symbol.for('response')].statusCode = code;\n    }\n\n    /**\n     * @type {string}\n     */\n    get text() {\n        return this[Symbol.for('body')];\n    }\n\n    /**\n     * @type {string}\n     */\n    set text(data) {\n        this.contentType = `text/plain; charset=${env('BQ_DEFAULT_CHARSET')}`;\n        this[Symbol.for('body')] = data;\n    }\n\n    /**\n     * Calls and returns the result of `http.ServerResponse#write(this.body)`\n     * and resets `this.body` back to an empty string.\n     *\n     * @return {boolean}\n     * @see https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback\n     */\n    write() {\n        // Save a reference to the body before we reset it so we can return it.\n        const body = this[Symbol.for('body')];\n        this[Symbol.for('body')] = '';\n\n        return this[Symbol.for('response')].write(body);\n    }\n};\n",
     "static": true,
     "longname": "lib/Response.js",
     "access": null,
@@ -298,7 +334,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 15,
+    "__docId__": 17,
     "kind": "class",
     "name": "Response",
     "memberof": "lib/Response.js",
@@ -309,7 +345,7 @@
     "importPath": "@becquerel/framework/lib/Response.js",
     "importStyle": "Response",
     "description": null,
-    "lineNumber": 1,
+    "lineNumber": 3,
     "undocument": true,
     "unknown": [
       {
@@ -320,7 +356,7 @@
     "interface": false
   },
   {
-    "__docId__": 16,
+    "__docId__": 18,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/Response.js~Response",
@@ -333,7 +369,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_class_http_serverresponse"
     ],
-    "lineNumber": 8,
+    "lineNumber": 10,
     "params": [
       {
         "nullable": null,
@@ -342,104 +378,44 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "response",
+        "name": "serverResponse",
         "description": ""
       }
     ]
   },
   {
-    "__docId__": 17,
-    "kind": "member",
-    "name": "_body",
-    "memberof": "lib/Response.js~Response",
-    "static": false,
-    "longname": "lib/Response.js~Response#_body",
-    "access": null,
-    "description": "",
-    "lineNumber": 12,
-    "type": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 18,
-    "kind": "member",
-    "name": "_response",
-    "memberof": "lib/Response.js~Response",
-    "static": false,
-    "longname": "lib/Response.js~Response#_response",
-    "access": null,
-    "description": "",
-    "see": [
-      "https://nodejs.org/api/http.html#http_class_http_serverresponse"
-    ],
-    "lineNumber": 18,
-    "type": {
-      "nullable": null,
-      "types": [
-        "http.ServerResponse"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
     "__docId__": 19,
-    "kind": "get",
-    "name": "body",
+    "kind": "member",
+    "name": "[Symbol.for('body')]",
     "memberof": "lib/Response.js~Response",
-    "generator": false,
-    "async": false,
     "static": false,
-    "longname": "lib/Response.js~Response#body",
+    "longname": "lib/Response.js~Response#[Symbol.for('body')]",
     "access": null,
-    "description": "",
-    "lineNumber": 24,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
     "type": {
-      "nullable": null,
       "types": [
         "string"
-      ],
-      "spread": false,
-      "description": null
+      ]
     }
   },
   {
     "__docId__": 20,
-    "kind": "set",
-    "name": "body",
-    "memberof": "lib/Response.js~Response",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/Response.js~Response#body",
-    "access": null,
-    "description": "",
-    "lineNumber": 31,
-    "type": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 21,
     "kind": "member",
-    "name": "_body",
+    "name": "[Symbol.for('response')]",
     "memberof": "lib/Response.js~Response",
     "static": false,
-    "longname": "lib/Response.js~Response#_body",
+    "longname": "lib/Response.js~Response#[Symbol.for('response')]",
     "access": null,
     "description": null,
-    "lineNumber": 32,
+    "lineNumber": 12,
     "undocument": true,
     "unknown": [
       {
@@ -454,17 +430,38 @@
     }
   },
   {
-    "__docId__": 22,
+    "__docId__": 21,
     "kind": "get",
-    "name": "contentType",
+    "name": "body",
     "memberof": "lib/Response.js~Response",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "lib/Response.js~Response#contentType",
+    "longname": "lib/Response.js~Response#body",
     "access": null,
     "description": "",
-    "lineNumber": 38,
+    "lineNumber": 18,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 22,
+    "kind": "set",
+    "name": "body",
+    "memberof": "lib/Response.js~Response",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/Response.js~Response#body",
+    "access": null,
+    "description": "",
+    "lineNumber": 25,
     "type": {
       "nullable": null,
       "types": [
@@ -476,7 +473,30 @@
   },
   {
     "__docId__": 23,
-    "kind": "set",
+    "kind": "member",
+    "name": "[Symbol.for('body')]",
+    "memberof": "lib/Response.js~Response",
+    "static": false,
+    "longname": "lib/Response.js~Response#[Symbol.for('body')]",
+    "access": null,
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 24,
+    "kind": "get",
     "name": "contentType",
     "memberof": "lib/Response.js~Response",
     "generator": false,
@@ -485,32 +505,11 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": "",
-    "lineNumber": 45,
+    "lineNumber": 32,
     "type": {
       "nullable": null,
       "types": [
         "string"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 24,
-    "kind": "get",
-    "name": "json",
-    "memberof": "lib/Response.js~Response",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/Response.js~Response#json",
-    "access": null,
-    "description": "",
-    "lineNumber": 52,
-    "type": {
-      "nullable": null,
-      "types": [
-        "*"
       ],
       "spread": false,
       "description": null
@@ -519,6 +518,27 @@
   {
     "__docId__": 25,
     "kind": "set",
+    "name": "contentType",
+    "memberof": "lib/Response.js~Response",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/Response.js~Response#contentType",
+    "access": null,
+    "description": "",
+    "lineNumber": 39,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 26,
+    "kind": "get",
     "name": "json",
     "memberof": "lib/Response.js~Response",
     "generator": false,
@@ -527,7 +547,7 @@
     "longname": "lib/Response.js~Response#json",
     "access": null,
     "description": "",
-    "lineNumber": 59,
+    "lineNumber": 46,
     "type": {
       "nullable": null,
       "types": [
@@ -538,7 +558,28 @@
     }
   },
   {
-    "__docId__": 26,
+    "__docId__": 27,
+    "kind": "set",
+    "name": "json",
+    "memberof": "lib/Response.js~Response",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/Response.js~Response#json",
+    "access": null,
+    "description": "",
+    "lineNumber": 53,
+    "type": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 28,
     "kind": "member",
     "name": "contentType",
     "memberof": "lib/Response.js~Response",
@@ -546,7 +587,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 60,
+    "lineNumber": 54,
     "undocument": true,
     "unknown": [
       {
@@ -561,15 +602,15 @@
     }
   },
   {
-    "__docId__": 27,
+    "__docId__": 29,
     "kind": "member",
-    "name": "body",
+    "name": "[Symbol.for('body')]",
     "memberof": "lib/Response.js~Response",
     "static": false,
-    "longname": "lib/Response.js~Response#body",
+    "longname": "lib/Response.js~Response#[Symbol.for('body')]",
     "access": null,
     "description": null,
-    "lineNumber": 61,
+    "lineNumber": 55,
     "undocument": true,
     "unknown": [
       {
@@ -584,7 +625,7 @@
     }
   },
   {
-    "__docId__": 28,
+    "__docId__": 30,
     "kind": "get",
     "name": "html",
     "memberof": "lib/Response.js~Response",
@@ -594,7 +635,7 @@
     "longname": "lib/Response.js~Response#html",
     "access": null,
     "description": "",
-    "lineNumber": 67,
+    "lineNumber": 61,
     "type": {
       "nullable": null,
       "types": [
@@ -605,7 +646,7 @@
     }
   },
   {
-    "__docId__": 29,
+    "__docId__": 31,
     "kind": "set",
     "name": "html",
     "memberof": "lib/Response.js~Response",
@@ -615,7 +656,7 @@
     "longname": "lib/Response.js~Response#html",
     "access": null,
     "description": "",
-    "lineNumber": 74,
+    "lineNumber": 68,
     "type": {
       "nullable": null,
       "types": [
@@ -626,7 +667,7 @@
     }
   },
   {
-    "__docId__": 30,
+    "__docId__": 32,
     "kind": "member",
     "name": "contentType",
     "memberof": "lib/Response.js~Response",
@@ -634,7 +675,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 75,
+    "lineNumber": 69,
     "undocument": true,
     "unknown": [
       {
@@ -649,15 +690,15 @@
     }
   },
   {
-    "__docId__": 31,
+    "__docId__": 33,
     "kind": "member",
-    "name": "body",
+    "name": "[Symbol.for('body')]",
     "memberof": "lib/Response.js~Response",
     "static": false,
-    "longname": "lib/Response.js~Response#body",
+    "longname": "lib/Response.js~Response#[Symbol.for('body')]",
     "access": null,
     "description": null,
-    "lineNumber": 76,
+    "lineNumber": 70,
     "undocument": true,
     "unknown": [
       {
@@ -672,7 +713,7 @@
     }
   },
   {
-    "__docId__": 32,
+    "__docId__": 34,
     "kind": "method",
     "name": "send",
     "memberof": "lib/Response.js~Response",
@@ -685,7 +726,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_response_end_data_encoding_callback"
     ],
-    "lineNumber": 85,
+    "lineNumber": 79,
     "params": [],
     "return": {
       "nullable": null,
@@ -697,63 +738,21 @@
     }
   },
   {
-    "__docId__": 33,
-    "kind": "get",
-    "name": "statusCode",
-    "memberof": "lib/Response.js~Response",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/Response.js~Response#statusCode",
-    "access": null,
-    "description": "",
-    "lineNumber": 94,
-    "type": {
-      "nullable": null,
-      "types": [
-        "number"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 34,
-    "kind": "set",
-    "name": "statusCode",
-    "memberof": "lib/Response.js~Response",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/Response.js~Response#statusCode",
-    "access": null,
-    "description": "",
-    "lineNumber": 101,
-    "type": {
-      "nullable": null,
-      "types": [
-        "number"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
     "__docId__": 35,
     "kind": "get",
-    "name": "text",
+    "name": "statusCode",
     "memberof": "lib/Response.js~Response",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "lib/Response.js~Response#text",
+    "longname": "lib/Response.js~Response#statusCode",
     "access": null,
     "description": "",
-    "lineNumber": 108,
+    "lineNumber": 88,
     "type": {
       "nullable": null,
       "types": [
-        "string"
+        "number"
       ],
       "spread": false,
       "description": null
@@ -762,6 +761,27 @@
   {
     "__docId__": 36,
     "kind": "set",
+    "name": "statusCode",
+    "memberof": "lib/Response.js~Response",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/Response.js~Response#statusCode",
+    "access": null,
+    "description": "",
+    "lineNumber": 95,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "get",
     "name": "text",
     "memberof": "lib/Response.js~Response",
     "generator": false,
@@ -770,7 +790,7 @@
     "longname": "lib/Response.js~Response#text",
     "access": null,
     "description": "",
-    "lineNumber": 115,
+    "lineNumber": 102,
     "type": {
       "nullable": null,
       "types": [
@@ -781,7 +801,28 @@
     }
   },
   {
-    "__docId__": 37,
+    "__docId__": 38,
+    "kind": "set",
+    "name": "text",
+    "memberof": "lib/Response.js~Response",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/Response.js~Response#text",
+    "access": null,
+    "description": "",
+    "lineNumber": 109,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 39,
     "kind": "member",
     "name": "contentType",
     "memberof": "lib/Response.js~Response",
@@ -789,7 +830,7 @@
     "longname": "lib/Response.js~Response#contentType",
     "access": null,
     "description": null,
-    "lineNumber": 116,
+    "lineNumber": 110,
     "undocument": true,
     "unknown": [
       {
@@ -804,15 +845,15 @@
     }
   },
   {
-    "__docId__": 38,
+    "__docId__": 40,
     "kind": "member",
-    "name": "body",
+    "name": "[Symbol.for('body')]",
     "memberof": "lib/Response.js~Response",
     "static": false,
-    "longname": "lib/Response.js~Response#body",
+    "longname": "lib/Response.js~Response#[Symbol.for('body')]",
     "access": null,
     "description": null,
-    "lineNumber": 117,
+    "lineNumber": 111,
     "undocument": true,
     "unknown": [
       {
@@ -827,7 +868,7 @@
     }
   },
   {
-    "__docId__": 39,
+    "__docId__": 41,
     "kind": "method",
     "name": "write",
     "memberof": "lib/Response.js~Response",
@@ -840,7 +881,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback"
     ],
-    "lineNumber": 127,
+    "lineNumber": 121,
     "params": [],
     "return": {
       "nullable": null,
@@ -852,15 +893,15 @@
     }
   },
   {
-    "__docId__": 40,
+    "__docId__": 42,
     "kind": "member",
-    "name": "body",
+    "name": "[Symbol.for('body')]",
     "memberof": "lib/Response.js~Response",
     "static": false,
-    "longname": "lib/Response.js~Response#body",
+    "longname": "lib/Response.js~Response#[Symbol.for('body')]",
     "access": null,
     "description": null,
-    "lineNumber": 129,
+    "lineNumber": 124,
     "undocument": true,
     "unknown": [
       {
@@ -875,7 +916,7 @@
     }
   },
   {
-    "__docId__": 41,
+    "__docId__": 43,
     "kind": "file",
     "name": "lib/Route.js",
     "content": "/**\n * @typedef {Object<string, RouteHandler>} Route\n */\n",
@@ -886,7 +927,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 42,
+    "__docId__": 44,
     "kind": "typedef",
     "name": "Route",
     "memberof": "lib/Route.js",
@@ -903,7 +944,7 @@
     }
   },
   {
-    "__docId__": 43,
+    "__docId__": 45,
     "kind": "file",
     "name": "lib/RouteHandler.js",
     "content": "/**\n * @typedef {function(request: Request, response: Response)} RouteHandler\n */\n",
@@ -914,7 +955,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 44,
+    "__docId__": 46,
     "kind": "typedef",
     "name": "RouteHandler",
     "memberof": "lib/RouteHandler.js",
@@ -931,7 +972,7 @@
     }
   },
   {
-    "__docId__": 45,
+    "__docId__": 47,
     "kind": "file",
     "name": "lib/env.js",
     "content": "/**\n * If only the `name` parameter is provided this function acts as a getter for\n * `process.env`. However if `name` and `value` are provide it acts as a setter\n * for `process.env`. When acting as a getter the function will try to call\n * `JSON.parse()` on the value cast to lowercase _(to convert `'true'` to `true`,\n * `'TRUE'` to `true`, `'1'` to `1`, etc.)_ and if that fails it will return the\n * value verbatim.\n *\n * @param {string} name - The envvar name to interact with.\n * @param {*} [value] - If provided sets the value of the `name` envvar.\n * @return {*} The parsed envvar value, regardless of if called as a getter or setter.\n * @see https://nodejs.org/api/process.html#process_process_env\n */\nmodule.exports = function env(name, value) {\n    if (value !== undefined) {\n        process.env[name] = value;\n    }\n\n    const _value = process.env[name];\n\n    try {\n        return JSON.parse(_value.toLowerCase());\n    } catch (_) {\n        return _value;\n    }\n};\n",
@@ -942,7 +983,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 46,
+    "__docId__": 48,
     "kind": "function",
     "name": "env",
     "memberof": "lib/env.js",
@@ -991,10 +1032,10 @@
     }
   },
   {
-    "__docId__": 47,
+    "__docId__": 49,
     "kind": "file",
     "name": "lib/index.js",
-    "content": "const env = require('./env');\nconst http = require('http');\nconst Request = require('./Request');\nconst Response = require('./Response');\nconst url = require('url');\n\nconst noop = () => {};\n\nmodule.exports = class Bq {\n    constructor() {\n        this.routes = {};\n\n        const defaults = {\n            BQ_RUN_DEFAULT_PORT: 8080,\n            BQ_RUN_DISPLAY_MSG: true\n        };\n\n        Object.entries(defaults).forEach(pair => {\n            const [name, value] = pair;\n\n            if (env(name) === undefined) {\n                env(name, value);\n            }\n        });\n    }\n\n    /**\n     * A helper method to work with the instance's internal `#routes` property.\n     * Acts as a getter if the `route` parameter is not specified and a setter\n     * if it is. This method always returns the specified route object.\n     *\n     * @param {string} path - The path name to get/set the route _(e.g. `'/resource'`)_.\n     * @param {Route} [route] - An object consisting of callback functions mapped to method keys.\n     * @return {RouteHandler}\n     */\n    route(path, route) {\n        if (route) {\n            this.routes[path] = route;\n        }\n\n        return this.routes[path] || noop;\n    }\n\n    /**\n     * Start the app server.\n     *\n     * @param {Object} [settings={port: 8080}] - The port setting defaults to the value of the `BQ_RUN_DEFAULT_PORT` envvar.\n     * @return {http.Server} The server instance that has been started.\n     * @see https://nodejs.org/api/http.html#http_class_http_server\n     */\n    run(settings = {}) {\n        const defaults = {port: env('BQ_RUN_DEFAULT_PORT')};\n        const {port} = Object.assign(defaults, settings);\n        const uri = `http://localhost:${port}`;\n        const server = http.createServer(this.serve.bind(this));\n\n        if (env('BQ_RUN_DISPLAY_MSG')) {\n            console.log(`Now listening at <${uri}>.`);\n        }\n\n        return server.listen(port);\n    }\n\n    /**\n     * The callback invoked by `#run()` when the server receives a client request.\n     *\n     * @param {http.IncomingMessage} request\n     * @param {http.ServerResponse} response\n     * @return {boolean} The value returned by `http.ServerResponse#end()`.\n     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage\n     * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    serve(request, response) {\n        let _request = new Request(request);\n        let _response = new Response(response);\n        let route = this.route(_request.path);\n        let method = _request.method;\n\n        if (route && route[method]) {\n            route[method](_request, _response);\n        } else {\n            Object.assign(_response, {statusCode: 404, text: 'Resource not found.'});\n        }\n\n        return _response.send();\n    }\n};\n",
+    "content": "const env = require('./env');\nconst http = require('http');\nconst Request = require('./Request');\nconst Response = require('./Response');\nconst UriTemplate = require('./UriTemplate');\nconst url = require('url');\n\nconst noop = () => {};\n\nmodule.exports = class Bq {\n    constructor() {\n        this.routes = {};\n\n        const defaults = {\n            BQ_DEFAULT_CHARSET: 'utf-8',\n            BQ_RUN_DEFAULT_PORT: 8080,\n            BQ_RUN_DISPLAY_MSG: true\n        };\n\n        Object.entries(defaults).forEach(pair => {\n            const [name, value] = pair;\n\n            if (env(name) === undefined) {\n                env(name, value);\n            }\n        });\n    }\n\n    /**\n     * A helper method to work with the instance's internal `#routes` property.\n     * Acts as a getter if the `route` parameter is not specified and a setter\n     * if it is. This method always returns the specified route object.\n     *\n     * @param {string} path - The path name to get/set the route _(e.g. `'/resource'`)_.\n     * @param {Route} [route] - An object consisting of callback functions mapped to method keys.\n     * @return {RouteHandler}\n     */\n    route(path, route) {\n        if (route) {\n            this.routes[path] = route;\n        }\n\n        return Object.keys(this.routes).reduce((accumulator, routeId) => {\n            if (!new UriTemplate(routeId).test(path)) {\n                return accumulator;\n            }\n\n            return this.routes[routeId];\n        }, noop);\n    }\n\n    /**\n     * Start the app server.\n     *\n     * @param {Object} [settings={port: 8080}] - The port setting defaults to the value of the `BQ_RUN_DEFAULT_PORT` envvar.\n     * @return {http.Server} The server instance that has been started.\n     * @see https://nodejs.org/api/http.html#http_class_http_server\n     */\n    run(settings = {}) {\n        const defaults = {port: env('BQ_RUN_DEFAULT_PORT')};\n        const {port} = Object.assign(defaults, settings);\n        const uri = `http://localhost:${port}/`;\n        const server = http.createServer(this.serve.bind(this));\n\n        if (env('BQ_RUN_DISPLAY_MSG')) {\n            console.log(`Now listening at <${uri}>.`);\n        }\n\n        return server.listen(port);\n    }\n\n    /**\n     * The callback invoked by `#run()` when the server receives a client request.\n     *\n     * @param {http.IncomingMessage} incomingMessage\n     * @param {http.ServerResponse} serverResponse\n     * @return {undefined}\n     * @see https://nodejs.org/api/http.html#http_class_http_incomingmessage\n     * @see https://nodejs.org/api/http.html#http_class_http_serverresponse\n     * @see https://nodejs.org/api/http.html#http_response_end_data_encoding_callback\n     */\n    serve(incomingMessage, serverResponse) {\n        let request = new Request(incomingMessage);\n        let response = new Response(serverResponse);\n        let uriTemplate = Object.keys(this.routes).reduce((accumulator, routeId) => {\n            let uriTemplate = new UriTemplate(routeId);\n\n            if (!uriTemplate.test(request.path)) {\n                return accumulator;\n            }\n\n            return uriTemplate;\n        }, new UriTemplate());\n        let route = this.route(request.path);\n        let method = request.method;\n        request.uriVariables = uriTemplate.getVariables(request.path);\n\n        if (!route || !route[method]) {\n            Object.assign(response, {statusCode: 404, text: 'Resource not found.'});\n            response.send();\n\n            return;\n        }\n\n        const callback = route[method];\n\n        /** @see https://stackoverflow.com/questions/38508420/how-to-know-if-a-function-is-async#answer-38510353 */\n        if (callback[Symbol.toStringTag] === 'AsyncFunction') {\n            callback(request, response).catch(error => {\n                Object.assign(response, {statusCode: 500, text: JSON.stringify(error)});\n            }).then(() => {\n                response.send();\n            });\n        } else {\n            callback(request, response);\n            response.send();\n        }\n    }\n};\n",
     "static": true,
     "longname": "lib/index.js",
     "access": null,
@@ -1002,137 +1043,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 48,
-    "kind": "variable",
-    "name": "env",
-    "memberof": "lib/index.js",
-    "static": true,
-    "longname": "lib/index.js~env",
-    "access": null,
-    "export": false,
-    "importPath": "@becquerel/framework",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 1,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 49,
-    "kind": "variable",
-    "name": "http",
-    "memberof": "lib/index.js",
-    "static": true,
-    "longname": "lib/index.js~http",
-    "access": null,
-    "export": false,
-    "importPath": "@becquerel/framework",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
     "__docId__": 50,
-    "kind": "variable",
-    "name": "Request",
-    "memberof": "lib/index.js",
-    "static": true,
-    "longname": "lib/index.js~Request",
-    "access": null,
-    "export": false,
-    "importPath": "@becquerel/framework",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 3,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 51,
-    "kind": "variable",
-    "name": "Response",
-    "memberof": "lib/index.js",
-    "static": true,
-    "longname": "lib/index.js~Response",
-    "access": null,
-    "export": false,
-    "importPath": "@becquerel/framework",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 52,
-    "kind": "variable",
-    "name": "url",
-    "memberof": "lib/index.js",
-    "static": true,
-    "longname": "lib/index.js~url",
-    "access": null,
-    "export": false,
-    "importPath": "@becquerel/framework",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
-    "unknown": [
-      {
-        "tagName": "@_undocument",
-        "tagValue": ""
-      }
-    ],
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 53,
     "kind": "function",
     "name": "noop",
     "memberof": "lib/index.js",
@@ -1145,7 +1056,7 @@
     "importPath": "@becquerel/framework",
     "importStyle": null,
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 8,
     "undocument": true,
     "unknown": [
       {
@@ -1156,7 +1067,7 @@
     "params": []
   },
   {
-    "__docId__": 54,
+    "__docId__": 51,
     "kind": "class",
     "name": "Bq",
     "memberof": "lib/index.js",
@@ -1167,7 +1078,7 @@
     "importPath": "@becquerel/framework",
     "importStyle": "Bq",
     "description": null,
-    "lineNumber": 9,
+    "lineNumber": 10,
     "undocument": true,
     "unknown": [
       {
@@ -1178,7 +1089,7 @@
     "interface": false
   },
   {
-    "__docId__": 55,
+    "__docId__": 52,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/index.js~Bq",
@@ -1188,7 +1099,7 @@
     "longname": "lib/index.js~Bq#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 11,
     "undocument": true,
     "unknown": [
       {
@@ -1199,7 +1110,7 @@
     "params": []
   },
   {
-    "__docId__": 56,
+    "__docId__": 53,
     "kind": "member",
     "name": "routes",
     "memberof": "lib/index.js~Bq",
@@ -1207,7 +1118,7 @@
     "longname": "lib/index.js~Bq#routes",
     "access": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 12,
     "undocument": true,
     "unknown": [
       {
@@ -1222,7 +1133,7 @@
     }
   },
   {
-    "__docId__": 57,
+    "__docId__": 54,
     "kind": "method",
     "name": "route",
     "memberof": "lib/index.js~Bq",
@@ -1232,7 +1143,7 @@
     "longname": "lib/index.js~Bq#route",
     "access": null,
     "description": "A helper method to work with the instance's internal `#routes` property.\nActs as a getter if the `route` parameter is not specified and a setter\nif it is. This method always returns the specified route object.",
-    "lineNumber": 36,
+    "lineNumber": 38,
     "params": [
       {
         "nullable": null,
@@ -1265,7 +1176,7 @@
     }
   },
   {
-    "__docId__": 58,
+    "__docId__": 55,
     "kind": "method",
     "name": "run",
     "memberof": "lib/index.js~Bq",
@@ -1278,7 +1189,7 @@
     "see": [
       "https://nodejs.org/api/http.html#http_class_http_server"
     ],
-    "lineNumber": 51,
+    "lineNumber": 59,
     "params": [
       {
         "nullable": null,
@@ -1303,7 +1214,7 @@
     }
   },
   {
-    "__docId__": 59,
+    "__docId__": 56,
     "kind": "method",
     "name": "serve",
     "memberof": "lib/index.js~Bq",
@@ -1318,7 +1229,7 @@
       "https://nodejs.org/api/http.html#http_class_http_serverresponse",
       "https://nodejs.org/api/http.html#http_response_end_data_encoding_callback"
     ],
-    "lineNumber": 74,
+    "lineNumber": 82,
     "params": [
       {
         "nullable": null,
@@ -1327,7 +1238,7 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "request",
+        "name": "incomingMessage",
         "description": ""
       },
       {
@@ -1337,21 +1248,21 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "response",
+        "name": "serverResponse",
         "description": ""
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "boolean"
+        "undefined"
       ],
       "spread": false,
-      "description": "The value returned by `http.ServerResponse#end()`."
+      "description": ""
     }
   },
   {
-    "__docId__": 61,
+    "__docId__": 58,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -1363,7 +1274,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 59,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -1375,7 +1286,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 60,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -1387,7 +1298,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 61,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -1399,7 +1310,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 62,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1411,7 +1322,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 63,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1423,7 +1334,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 64,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1435,7 +1346,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 65,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1447,7 +1358,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 66,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1459,7 +1370,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 67,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1471,7 +1382,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 68,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -1483,7 +1394,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 69,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -1495,7 +1406,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 70,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -1507,7 +1418,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 71,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -1519,7 +1430,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 72,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -1531,7 +1442,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 73,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -1543,7 +1454,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 74,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -1555,7 +1466,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 75,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -1567,7 +1478,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 79,
+    "__docId__": 76,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -1579,7 +1490,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 77,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1591,7 +1502,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 78,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1603,7 +1514,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 79,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -1615,7 +1526,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 80,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -1627,7 +1538,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 81,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -1639,7 +1550,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 82,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -1651,7 +1562,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 83,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -1663,7 +1574,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 84,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -1675,7 +1586,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 85,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -1687,7 +1598,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 86,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -1699,7 +1610,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 87,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -1711,7 +1622,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 91,
+    "__docId__": 88,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -1723,7 +1634,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 89,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -1735,7 +1646,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 93,
+    "__docId__": 90,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -1747,7 +1658,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 91,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -1759,7 +1670,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 95,
+    "__docId__": 92,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -1771,7 +1682,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 96,
+    "__docId__": 93,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -1783,7 +1694,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 94,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -1795,7 +1706,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 95,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -1807,7 +1718,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 99,
+    "__docId__": 96,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -1819,7 +1730,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 100,
+    "__docId__": 97,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -1831,7 +1742,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 101,
+    "__docId__": 98,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -1843,7 +1754,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 99,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -1855,7 +1766,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 103,
+    "__docId__": 100,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -1867,7 +1778,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 104,
+    "__docId__": 101,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -1879,7 +1790,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 105,
+    "__docId__": 102,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -1891,7 +1802,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 106,
+    "__docId__": 103,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -1903,7 +1814,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 104,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -1916,7 +1827,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 109,
+    "__docId__": 106,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -1928,7 +1839,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 110,
+    "__docId__": 107,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -1940,7 +1851,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 108,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -1952,7 +1863,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 112,
+    "__docId__": 109,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -1964,7 +1875,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 113,
+    "__docId__": 110,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -1976,7 +1887,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 114,
+    "__docId__": 111,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -1988,7 +1899,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 115,
+    "__docId__": 112,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -2000,7 +1911,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 116,
+    "__docId__": 113,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

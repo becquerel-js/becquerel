@@ -43,82 +43,76 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/Response.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">module.exports = class Response {
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const env = require(&apos;./env&apos;);
+
+module.exports = class Response {
     /**
      * Creates an instance of `Response`.
      *
-     * @param {http.ServerResponse} response
+     * @param {http.ServerResponse} serverResponse
      * @see https://nodejs.org/api/http.html#http_class_http_serverresponse
      */
-    constructor(response) {
-        /**
-         * @type {string}
-         */
-        this._body = &apos;&apos;;
-
-        /**
-         * @type {http.ServerResponse}
-         * @see https://nodejs.org/api/http.html#http_class_http_serverresponse
-         */
-        this._response = response;
+    constructor(serverResponse) {
+        this[Symbol.for(&apos;body&apos;)] = &apos;&apos;;
+        this[Symbol.for(&apos;response&apos;)] = serverResponse;
     }
 
     /**
      * @type {string}
      */
     get body() {
-        return this._body;
+        return this[Symbol.for(&apos;body&apos;)];
     }
 
     /**
      * @type {string}
      */
     set body(data) {
-        this._body = data;
+        this[Symbol.for(&apos;body&apos;)] = data;
     }
 
     /**
      * @type {string}
      */
     get contentType() {
-        return this._response.getHeader(&apos;Content-Type&apos;);
+        return this[Symbol.for(&apos;response&apos;)].getHeader(&apos;Content-Type&apos;);
     }
 
     /**
      * @type {string}
      */
     set contentType(type) {
-        this._response.setHeader(&apos;Content-Type&apos;, type);
+        this[Symbol.for(&apos;response&apos;)].setHeader(&apos;Content-Type&apos;, type);
     }
 
     /**
      * @type {*}
      */
     get json() {
-        return JSON.parse(this.body);
+        return JSON.parse(this[Symbol.for(&apos;body&apos;)]);
     }
 
     /**
      * @type {*}
      */
     set json(data) {
-        this.contentType = &apos;application/json; charset=utf-8&apos;;
-        this.body = JSON.stringify(data, &apos; &apos;, 4);
+        this.contentType = `application/json; charset=${env(&apos;BQ_DEFAULT_CHARSET&apos;)}`;
+        this[Symbol.for(&apos;body&apos;)] = JSON.stringify(data, null, 4);
     }
 
     /**
      * @type {string}
      */
     get html() {
-        return this.body;
+        return this[Symbol.for(&apos;body&apos;)];
     }
 
     /**
      * @type {string}
      */
     set html(data) {
-        this.contentType = &apos;text/html; charset=utf-8&apos;;
-        this.body = data;
+        this.contentType = `text/html; charset=${env(&apos;BQ_DEFAULT_CHARSET&apos;)}`;
+        this[Symbol.for(&apos;body&apos;)] = data;
     }
 
     /**
@@ -130,36 +124,36 @@
     send() {
         this.write();
 
-        return this._response.end();
+        return this[Symbol.for(&apos;response&apos;)].end();
     }
 
     /**
      * @type {number}
      */
     get statusCode() {
-        return this._response.statusCode;
+        return this[Symbol.for(&apos;response&apos;)].statusCode;
     }
 
     /**
      * @type {number}
      */
     set statusCode(code) {
-        this._response.statusCode = code;
+        this[Symbol.for(&apos;response&apos;)].statusCode = code;
     }
 
     /**
      * @type {string}
      */
     get text() {
-        return this.body;
+        return this[Symbol.for(&apos;body&apos;)];
     }
 
     /**
      * @type {string}
      */
     set text(data) {
-        this.contentType = &apos;text/plain; charset=utf-8&apos;;
-        this.body = data;
+        this.contentType = `text/plain; charset=${env(&apos;BQ_DEFAULT_CHARSET&apos;)}`;
+        this[Symbol.for(&apos;body&apos;)] = data;
     }
 
     /**
@@ -170,10 +164,11 @@
      * @see https://nodejs.org/api/http.html#http_response_write_chunk_encoding_callback
      */
     write() {
-        const body = this.body;
-        this.body = &apos;&apos;;
+        // Save a reference to the body before we reset it so we can return it.
+        const body = this[Symbol.for(&apos;body&apos;)];
+        this[Symbol.for(&apos;body&apos;)] = &apos;&apos;;
 
-        return this._response.write(body);
+        return this[Symbol.for(&apos;response&apos;)].write(body);
     }
 };
 </code></pre>
