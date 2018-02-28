@@ -59,10 +59,6 @@ Testing
 $ yarn test # Or alternatively: `npm test`
 ```
 
-To-Do
------
-- [ ] Implement [IETF URI templates](https://tools.ietf.org/html/rfc6570).
-
 License
 -------
 The MIT License (Expat). See the [license file](LICENSE) for details.

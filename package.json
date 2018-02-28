@@ -9,6 +9,7 @@
   "scripts": {
     "esdoc": "esdoc",
     "gh-pages": "gh-pages --dist 'esdoc' --message 'Updating docs.'",
+    "prepublishOnly": "trevor",
     "test": "nyc jasmine"
   },
   "repository": {
@@ -38,6 +39,8 @@
     "gh-pages": "^1.0.0",
     "jasmine": "^2.8.0",
     "node-mocks-http": "^1.6.7",
-    "nyc": "^11.4.1"
+    "np": "^2.20.1",
+    "nyc": "^11.4.1",
+    "trevor": "^2.3.0"
   }
 }
