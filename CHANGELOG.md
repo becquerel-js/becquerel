@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Implemented initial basic support of IETF URI templates.
 
 ### Changed
-- The required Node version is now `>=7.10`.
+- The required Node version is now `>=8.6`.
 
 [0.3.0] - 2017-07-13
 --------------------
