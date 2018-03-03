@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 [Unreleased]
 ------------
 ### Changed
-- Now extracts prefixed URI variables.
+- Now extracts prefixed and suffixed URI variables.
 
 [0.4.0] - 2018-02-28
 --------------------

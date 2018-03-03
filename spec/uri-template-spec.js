@@ -51,6 +51,14 @@ describe('UriTemplate', function () {
             expect(uriTemplate.getVariables(path)).toEqual(expected);
         });
 
+        it('extracts the suffixed ID of a resource', function () {
+            const uriTemplate = new UriTemplate('/cards/{id}!');
+            const path = '/cards/jdoe!';
+            const expected = {id: 'jdoe'};
+
+            expect(uriTemplate.getVariables(path)).toEqual(expected);
+        });
+
         it('extracts the ID of a resource and the declared action', function () {
             const uriTemplate = new UriTemplate('/cards/{id}/{action}');
             const path = '/cards/jdoe/edit';
