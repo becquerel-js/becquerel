@@ -71,6 +71,9 @@ module.exports = class Request {
         /** @type {string} */
         this.host = incomingMessage.headers[&apos;host&apos;];
 
+        /** @type {http.IncomingMessage} */
+        this.incomingMessage = incomingMessage;
+
         /** @type {string} */
         this.method = incomingMessage.method.toLowerCase();
 

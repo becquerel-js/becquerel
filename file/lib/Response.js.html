@@ -55,6 +55,9 @@ module.exports = class Response {
     constructor(serverResponse) {
         this[Symbol.for(&apos;body&apos;)] = &apos;&apos;;
         this[Symbol.for(&apos;response&apos;)] = serverResponse;
+
+        /** @type {http.ServerResponse} */
+        this.serverResponse = serverResponse;
     }
 
     /**

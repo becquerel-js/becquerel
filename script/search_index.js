@@ -408,6 +408,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/request.js~request#incomingmessage",
+    "class/lib/Request.js~Request.html#instance-member-incomingMessage",
+    "lib/Request.js~Request#incomingMessage",
+    "member"
+  ],
+  [
     "lib/request.js~request#method",
     "class/lib/Request.js~Request.html#instance-member-method",
     "lib/Request.js~Request#method",
@@ -427,13 +433,13 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/request.js~request#urivariables",
-    "class/lib/Request.js~Request.html#instance-get-uriVariables",
+    "class/lib/Request.js~Request.html#instance-set-uriVariables",
     "lib/Request.js~Request#uriVariables",
     "member"
   ],
   [
     "lib/request.js~request#urivariables",
-    "class/lib/Request.js~Request.html#instance-set-uriVariables",
+    "class/lib/Request.js~Request.html#instance-get-uriVariables",
     "lib/Request.js~Request#uriVariables",
     "member"
   ],
@@ -520,6 +526,12 @@ window.esdocSearchIndex = [
     "class/lib/Response.js~Response.html#instance-method-send",
     "lib/Response.js~Response#send",
     "method"
+  ],
+  [
+    "lib/response.js~response#serverresponse",
+    "class/lib/Response.js~Response.html#instance-member-serverResponse",
+    "lib/Response.js~Response#serverResponse",
+    "member"
   ],
   [
     "lib/response.js~response#statuscode",
