@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 [Unreleased]
 ------------
+### Added
+- Added `Response#serverResponse` to expose the original `http.ServerResponse` object.
+- Added `Request#incomingMessage` to expose the original `http.IncomingMessage` object.
+
 ### Changed
 - Now extracts prefixed and suffixed URI variables.
 
